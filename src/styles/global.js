@@ -59,6 +59,10 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
   },
+  center: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   padA: {
     paddingTop: 40,
   },

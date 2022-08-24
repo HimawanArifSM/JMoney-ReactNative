@@ -7,7 +7,7 @@ import Login from './src/screens/Login';
 import Register from './src/screens/Register';
 
 const App = () => {
-  return <CreatePinSuccess />;
+  return <CreatePin />;
 };
 
 export default App;
