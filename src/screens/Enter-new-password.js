@@ -3,7 +3,7 @@ import React from 'react';
 import Input from '../components/Input';
 import styles from '../styles/global';
 
-const EnterNewPassword = () => {
+const EnterNewPassword = ({navigation}) => {
   return (
     <ScrollView style={styles.wrapper}>
       <View style={styles.header}>
@@ -31,7 +31,7 @@ const EnterNewPassword = () => {
           </View>
         </View>
         <View style={[styles.buttonWrapper, styles.marC, styles.padB]}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
             <View style={styles.button}>
               <Text style={styles.buttonText}>Reset Password</Text>
             </View>

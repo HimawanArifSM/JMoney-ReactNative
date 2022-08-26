@@ -13,6 +13,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: SECONDARY_COLOR,
   },
+  colorPrim: {
+    color: PRIMARY_COLOR,
+  },
   header: {
     alignItems: 'center',
     justifyContent: 'center',

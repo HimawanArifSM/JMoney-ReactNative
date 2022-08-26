@@ -3,12 +3,19 @@ import React from 'react';
 import Input from '../components/Input';
 import styles from '../styles/global';
 
-const ForgotPassword = () => {
+const ForgotPassword = ({navigation}) => {
   const [email, setEmail] = React.useState('');
 
   const onSubmit = () => {
     if (email === 'admin@mail.com') {
-      Alert.alert('Success', 'Login Success');
+      Alert.alert('Success', 'Email registered', [
+        {
+          text: 'OK',
+          onPress: () => {
+            navigation.navigate('Enter-new-password');
+          },
+        },
+      ]);
     } else {
       Alert.alert('Error', 'Wrong username or password');
     }
