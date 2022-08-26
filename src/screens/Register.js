@@ -3,7 +3,7 @@ import React from 'react';
 import styles from '../styles/global.js';
 import Input from '../components/Input.js';
 
-function Login() {
+function Register({navigation}) {
   const [fullName, setFullName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -13,7 +13,14 @@ function Login() {
       password === 'admin' &&
       fullName === 'admin pertama'
     ) {
-      Alert.alert('Success', 'Login Success');
+      Alert.alert('Success', 'Register Success', [
+        {
+          text: 'OK',
+          onPress: () => {
+            navigation.navigate('Login');
+          },
+        },
+      ]);
     } else {
       Alert.alert('Error', 'Wrong username or password');
     }
@@ -34,7 +41,7 @@ function Login() {
             onChange={text => setFullName(text)}
             placeholder="Full Name"
             icon="user"
-            type="number-pad"
+            type="text"
           />
         </View>
         <View style={[styles.inputWrapper, styles.marB]}>
@@ -56,16 +63,21 @@ function Login() {
         <View style={[styles.buttonWrapper, styles.padA]}>
           <TouchableOpacity onPress={onSubmit}>
             <View style={styles.button}>
-              <Text style={styles.buttonText}>Login</Text>
+              <Text style={styles.buttonText}>Register</Text>
             </View>
           </TouchableOpacity>
         </View>
         <Text style={[styles.textSecondary, styles.marA]}>
-          Already have an account? Let's Login
+          Already have an account?
+          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+            <Text style={[styles.textSecondary, styles.colorPrim]}>
+              Let's Login
+            </Text>
+          </TouchableOpacity>
         </Text>
       </ScrollView>
     </ScrollView>
   );
 }
 
-export default Login;
+export default Register;

@@ -12,7 +12,7 @@ function Login({navigation}) {
         {
           text: 'OK',
           onPress: () => {
-            navigation.navigate('Register');
+            navigation.navigate('Home');
           },
         },
       ]);
