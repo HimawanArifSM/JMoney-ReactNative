@@ -1,13 +1,15 @@
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
 
-const ItemList = ({item}) => {
+const ItemList = ({item, navigation}) => {
   return (
-    <View style={stylesLocal.listed}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate(`${item.navigate}`)}
+      style={stylesLocal.listed}>
       <View style={stylesLocal.leftSide}>
         {/* <Image /> */}
         <View style={stylesLocal.pict} />
-        <View>
+        <View style={stylesLocal.marginLeft}>
           <Text>{item.name}</Text>
           <Text>{item.transType}</Text>
         </View>
@@ -15,7 +17,7 @@ const ItemList = ({item}) => {
       <View>
         <Text>{item.amount}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -35,6 +37,10 @@ const stylesLocal = StyleSheet.create({
     padding: 10,
     justifyContent: 'space-between',
     flexDirection: 'row',
+    alignItems: 'center',
+  },
+  marginLeft: {
+    marginHorizontal: 10,
   },
 });
 

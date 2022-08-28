@@ -12,55 +12,57 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import {PRIMARY_COLOR, SECONDARY_COLOR} from '../styles/constant';
 import ItemList from '../components/ItemList';
+
+import graph from '../assets/graphic.png';
 import Data from '../assets/Data';
 
-const Home = ({navigation}) => {
+const Details = ({navigation}) => {
   return (
     <>
+      {/* header */}
+      {/* <ScrollView> */}
       <View>
-        {/* header */}
         <View style={stylesLocal.header}>
-          <View>
+          {/* <View style={stylesLocal.buttonSection}> */}
+          <View style={stylesLocal.textBetween}>
+            <Icon name="arrow-down" color="green" size={20} />
             <View>
-              <Image />
-            </View>
-            <View>
-              <Text style={stylesLocal.textWhite}>Balance</Text>
-              <Text style={stylesLocal.textWhite}>Amount</Text>
+              <Text>Income</Text>
+              <Text>Amount</Text>
             </View>
           </View>
-          <View>
-            <Icon name={'bell'} size={20} color={'white'} />
+          <View style={stylesLocal.textBetween}>
+            <Icon name="arrow-up" color="red" size={20} />
+            <View>
+              <Text>Expense</Text>
+              <Text>Amount</Text>
+            </View>
           </View>
+          {/* </View> */}
         </View>
         {/* button */}
-        <View style={stylesLocal.buttonSection}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Find Receiver')}
-            style={stylesLocal.btnOne}>
-            <Icon name="arrow-up" size={20} />
-            <Text>Transfer</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={stylesLocal.btnOne}>
-            <Icon name="plus" size={20} />
-            <Text>Top Up</Text>
-          </TouchableOpacity>
+        <View style={stylesLocal.padding}>
+          <Text>In This Week</Text>
+          <Image style={stylesLocal.graphSection} source={graph} />
         </View>
         {/* content */}
         <View>
           <View style={stylesLocal.textBetween}>
             <Text>Transaction History</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Details')}>
+            <TouchableOpacity onPress={() => navigation.navigate('History')}>
               <Text>See all</Text>
             </TouchableOpacity>
           </View>
+          <View />
         </View>
       </View>
+      {/* </ScrollView> */}
       <FlatList
         data={Data}
         renderItem={ItemList}
         keyExtractor={item => String(item.id)}
         contentContainerStyle={stylesLocal.padding}
+        // ListHeaderComponent={}
       />
     </>
   );
@@ -72,7 +74,7 @@ const stylesLocal = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
     backgroundColor: PRIMARY_COLOR,
     height: Dimensions.get('screen').height * (15 / 100),
@@ -84,11 +86,12 @@ const stylesLocal = StyleSheet.create({
   textWhite: {
     color: 'white',
   },
-  buttonSection: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
+  padding: {
     padding: 10,
+  },
+  graphSection: {
+    padding: 10,
+    alignSelf: 'center',
   },
   btnOne: {
     backgroundColor: SECONDARY_COLOR,
@@ -108,4 +111,4 @@ const stylesLocal = StyleSheet.create({
   },
 });
 
-export default Home;
+export default Details;

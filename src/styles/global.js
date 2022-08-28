@@ -84,6 +84,12 @@ const styles = StyleSheet.create({
   spaceBetween: {
     justifyContent: 'space-between',
   },
+  padMain: {
+    padding: 10,
+  },
+  padBtm: {
+    marginBottom: 10,
+  },
 });
 
 export default styles;
