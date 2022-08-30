@@ -7,12 +7,12 @@ function Login({navigation}) {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const onLogin = () => {
-    if (email === 'admin@mail.com' && password === 'admin') {
+    if (email === '' && password === '') {
       Alert.alert('Success', 'Login Success', [
         {
           text: 'OK',
           onPress: () => {
-            navigation.navigate('Home');
+            navigation.navigate('HomeStack');
           },
         },
       ]);

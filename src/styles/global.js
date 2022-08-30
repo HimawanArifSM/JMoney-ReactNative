@@ -27,7 +27,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: SECONDARY_COLOR,
     paddingHorizontal: 16,
-    height: height2,
+    paddingBottom: 20,
+    // height: height2,
   },
   textMain: {
     fontSize: 26,
@@ -43,6 +44,12 @@ const styles = StyleSheet.create({
   },
   textRight: {
     textAlign: 'right',
+  },
+  headText: {
+    color: 'white',
+    fontWeight: '700',
+    fontSize: 20,
+    lineHeight: 30,
   },
   inputWrapper: {
     marginBottom: 10,

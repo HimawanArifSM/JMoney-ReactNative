@@ -16,11 +16,11 @@ import Input from '../components/Input';
 
 const SearchReceiver = ({navigation}) => {
   return (
-    <View style={stylesLocal.wraper}>
+    <View>
       {/* header */}
-      <View style={stylesLocal.header}>
+      {/* <View style={stylesLocal.header}>
         <Input placeholder="Search receiver here" icon="search" type="text" />
-      </View>
+      </View> */}
       <View style={stylesLocal.padding}>
         <Text>Contacts</Text>
         <Text>Contacts.Counts</Text>

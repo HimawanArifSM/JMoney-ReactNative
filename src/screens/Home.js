@@ -19,29 +19,17 @@ const Home = ({navigation}) => {
     <>
       <View>
         {/* header */}
-        <View style={stylesLocal.header}>
-          <View>
-            <View>
-              <Image />
-            </View>
-            <View>
-              <Text style={stylesLocal.textWhite}>Balance</Text>
-              <Text style={stylesLocal.textWhite}>Amount</Text>
-            </View>
-          </View>
-          <View>
-            <Icon name={'bell'} size={20} color={'white'} />
-          </View>
-        </View>
         {/* button */}
         <View style={stylesLocal.buttonSection}>
           <TouchableOpacity
-            onPress={() => navigation.navigate('Find Receiver')}
+            onPress={() => navigation.navigate('Transfer')}
             style={stylesLocal.btnOne}>
             <Icon name="arrow-up" size={20} />
             <Text>Transfer</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={stylesLocal.btnOne}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('TopUp')}
+            style={stylesLocal.btnOne}>
             <Icon name="plus" size={20} />
             <Text>Top Up</Text>
           </TouchableOpacity>
@@ -61,6 +49,7 @@ const Home = ({navigation}) => {
         renderItem={ItemList}
         keyExtractor={item => String(item.id)}
         contentContainerStyle={stylesLocal.padding}
+        // navigasi="TransferInput"
       />
     </>
   );
@@ -69,20 +58,6 @@ const Home = ({navigation}) => {
 const stylesLocal = StyleSheet.create({
   wraper: {
     flex: 1,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: PRIMARY_COLOR,
-    height: Dimensions.get('screen').height * (15 / 100),
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    padding: 10,
-    elevation: 3,
-  },
-  textWhite: {
-    color: 'white',
   },
   buttonSection: {
     flexDirection: 'row',

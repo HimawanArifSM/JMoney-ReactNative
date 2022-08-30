@@ -16,7 +16,7 @@ import ItemList2 from '../components/ItemList2';
 const Topup = ({navigation}) => {
   return (
     <View style={stylesLocal.padBot}>
-      <View style={stylesLocal.header}>
+      {/* <View style={stylesLocal.header}>
         <View style={stylesLocal.headerContent}>
           <Icon name="plus-square" size={30} color={PRIMARY_COLOR} />
           <View style={stylesLocal.marLeft}>
@@ -24,7 +24,7 @@ const Topup = ({navigation}) => {
             <Text>Virtual Account Number</Text>
           </View>
         </View>
-      </View>
+      </View> */}
       <View style={stylesLocal.padMain}>
         <Text>How To Top-Up</Text>
       </View>
@@ -44,7 +44,7 @@ const stylesLocal = StyleSheet.create({
     flexDirection: 'column',
   },
   padBot: {
-    paddingBottom: 170,
+    paddingBottom: 40,
   },
   marLeft: {
     marginLeft: 15,

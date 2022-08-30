@@ -4,7 +4,7 @@ import React from 'react';
 const ItemList = ({item, navigation}) => {
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate(`${item.navigate}`)}
+      onPress={() => navigation.navigate('')}
       style={stylesLocal.listed}>
       <View style={stylesLocal.leftSide}>
         {/* <Image /> */}
