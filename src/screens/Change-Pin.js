@@ -12,7 +12,7 @@ import ReactNativePinView from 'react-native-pin-view';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styles from '../styles/global';
 
-const ChangePin = () => {
+const ChangePin = ({navigation}) => {
   const pinView = useRef(null);
   const [showRemoveButton, setShowRemoveButton] = useState(false);
   const [enteredPin, setEnteredPin] = useState('');
@@ -62,12 +62,19 @@ const ChangePin = () => {
             <Icon name={'ios-backspace'} size={36} color={'#FFF'} />
           ) : undefined
         }
-        customRightButton={
-          showCompletedButton ? (
-            <Icon name={'ios-unlock'} size={36} color={'#FFF'} />
-          ) : undefined
-        }
+        // customRightButton={
+        //   showCompletedButton ? (
+        //     <Icon name={'ios-unlock'} size={36} color={'#FFF'} />
+        //   ) : undefined
+        // }
       />
+      <View style={[styles.button, styles.marC]}>
+        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+          <View>
+            <Text style={styles.buttonText}>Login</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

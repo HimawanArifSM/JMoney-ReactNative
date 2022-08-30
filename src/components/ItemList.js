@@ -1,11 +1,9 @@
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import React from 'react';
 
-const ItemList = ({item, navigation}) => {
+const ItemList = ({item}) => {
   return (
-    <TouchableOpacity
-      onPress={() => navigation.navigate('')}
-      style={stylesLocal.listed}>
+    <View style={stylesLocal.listed}>
       <View style={stylesLocal.leftSide}>
         {/* <Image /> */}
         <View style={stylesLocal.pict} />
@@ -17,7 +15,7 @@ const ItemList = ({item, navigation}) => {
       <View>
         <Text>{item.amount}</Text>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 };
 

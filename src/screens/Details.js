@@ -21,47 +21,58 @@ const Details = ({navigation}) => {
     <>
       {/* header */}
       {/* <ScrollView> */}
-      <View>
-        <View style={stylesLocal.header}>
-          {/* <View style={stylesLocal.buttonSection}> */}
-          <View style={stylesLocal.textBetween}>
-            <Icon name="arrow-down" color="green" size={20} />
-            <View>
-              <Text>Income</Text>
-              <Text>Amount</Text>
-            </View>
-          </View>
-          <View style={stylesLocal.textBetween}>
-            <Icon name="arrow-up" color="red" size={20} />
-            <View>
-              <Text>Expense</Text>
-              <Text>Amount</Text>
-            </View>
-          </View>
-          {/* </View> */}
-        </View>
-        {/* button */}
-        <View style={stylesLocal.padding}>
-          <Text>In This Week</Text>
-          <Image style={stylesLocal.graphSection} source={graph} />
-        </View>
-        {/* content */}
-        <View>
-          <View style={stylesLocal.textBetween}>
-            <Text>Transaction History</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('History')}>
-              <Text>See all</Text>
-            </TouchableOpacity>
-          </View>
-          <View />
-        </View>
-      </View>
+
       {/* </ScrollView> */}
       <FlatList
+        ListHeaderComponent={
+          <View>
+            <View style={stylesLocal.header}>
+              {/* <View style={stylesLocal.buttonSection}> */}
+              <View style={stylesLocal.textBetween}>
+                <Icon name="arrow-down" color="green" size={20} />
+                <View>
+                  <Text>Income</Text>
+                  <Text>Amount</Text>
+                </View>
+              </View>
+              <View style={stylesLocal.textBetween}>
+                <Icon name="arrow-up" color="red" size={20} />
+                <View>
+                  <Text>Expense</Text>
+                  <Text>Amount</Text>
+                </View>
+              </View>
+              {/* </View> */}
+            </View>
+            {/* button */}
+            <View style={stylesLocal.padding}>
+              <Text>In This Week</Text>
+              <Image style={stylesLocal.graphSection} source={graph} />
+            </View>
+            {/* content */}
+            <View>
+              <View style={stylesLocal.textBetween}>
+                <Text>Transaction History</Text>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('History')}>
+                  <Text>See all</Text>
+                </TouchableOpacity>
+              </View>
+              <View />
+            </View>
+          </View>
+        }
         data={Data}
-        renderItem={ItemList}
+        renderItem={({item}) => {
+          return (
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Transfer Success')}>
+              <ItemList item={item} />
+            </TouchableOpacity>
+          );
+        }}
         keyExtractor={item => String(item.id)}
-        contentContainerStyle={stylesLocal.padding}
+        // contentContainerStyle={stylesLocal.padding}
         // ListHeaderComponent={}
       />
     </>

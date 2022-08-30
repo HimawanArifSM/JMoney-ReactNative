@@ -12,7 +12,7 @@ import Input from '../components/Input';
 import BtnProfile from '../components/BtnProfile';
 import Icon from 'react-native-vector-icons/Feather';
 
-const ManagePhone = () => {
+const ManagePhone = ({navigation}) => {
   return (
     <View style={[styles.padMain]}>
       <View>
@@ -36,7 +36,9 @@ const ManagePhone = () => {
             +62 812-2131-2321
           </Text>
         </View>
-        <Icon name="clipboard" size={25} />
+        <TouchableOpacity onPress={() => navigation.navigate('Change Phone')}>
+          <Icon name="clipboard" size={25} />
+        </TouchableOpacity>
       </View>
     </View>
   );

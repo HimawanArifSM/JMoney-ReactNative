@@ -10,7 +10,7 @@ import {SECONDARY_COLOR} from '../styles/constant';
 import styles from '../styles/global';
 import Input from '../components/Input';
 
-const ChangePassword = () => {
+const ChangePassword = ({navigation}) => {
   return (
     <View style={styles.padMain}>
       <View>
@@ -31,7 +31,9 @@ const ChangePassword = () => {
         <Input placeholder="Repeat Password" icon="lock" secure={true} />
       </View>
       <View style={stylesLocal.marTop}>
-        <TouchableOpacity style={stylesLocal.btnOne}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Profile')}
+          style={stylesLocal.btnOne}>
           <Text>Continue</Text>
         </TouchableOpacity>
       </View>

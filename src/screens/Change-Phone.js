@@ -10,7 +10,7 @@ import {SECONDARY_COLOR} from '../styles/constant';
 import styles from '../styles/global';
 import Input from '../components/Input';
 
-const ChangePhone = () => {
+const ChangePhone = ({navigation}) => {
   return (
     <View style={[styles.padMain, stylesLocal.spBtwn]}>
       <View>
@@ -29,7 +29,9 @@ const ChangePhone = () => {
         />
       </View>
       <View style={stylesLocal.marTop}>
-        <TouchableOpacity style={stylesLocal.btnOne}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Personal Information')}
+          style={stylesLocal.btnOne}>
           <Text>Continue</Text>
         </TouchableOpacity>
       </View>

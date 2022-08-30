@@ -21,13 +21,23 @@ const SearchReceiver = ({navigation}) => {
       {/* <View style={stylesLocal.header}>
         <Input placeholder="Search receiver here" icon="search" type="text" />
       </View> */}
-      <View style={stylesLocal.padding}>
-        <Text>Contacts</Text>
-        <Text>Contacts.Counts</Text>
-      </View>
+
       <FlatList
+        ListHeaderComponent={
+          <View style={stylesLocal.padding}>
+            <Text>Contacts</Text>
+            <Text>Contacts.Counts</Text>
+          </View>
+        }
         data={Data}
-        renderItem={ItemList}
+        renderItem={({item}) => {
+          return (
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Input Transfer')}>
+              <ItemList item={item} />
+            </TouchableOpacity>
+          );
+        }}
         keyExtractor={item => String(item.id)}
         contentContainerStyle={stylesLocal.padding}
       />

@@ -47,7 +47,9 @@ const Confirmation = ({navigation}) => {
           <Text>Notes from reducer</Text>
         </View>
         <View>
-          <TouchableOpacity style={stylesLocal.btnOne}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('PIN Confirmation')}
+            style={stylesLocal.btnOne}>
             <Text>Continue</Text>
           </TouchableOpacity>
         </View>

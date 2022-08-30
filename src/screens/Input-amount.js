@@ -30,7 +30,9 @@ const InputAmount = ({navigation}) => {
           <Input placeholder="Add some notes" icon="pencil" type="text" />
         </View>
         <View>
-          <TouchableOpacity style={stylesLocal.btnOne}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Confirmation')}
+            style={stylesLocal.btnOne}>
             <Text>Continue</Text>
           </TouchableOpacity>
         </View>

@@ -10,8 +10,9 @@ import React, {useEffect, useRef, useState} from 'react';
 import {PRIMARY_COLOR, SECONDARY_COLOR} from '../styles/constant';
 import ReactNativePinView from 'react-native-pin-view';
 import Icon from 'react-native-vector-icons/Ionicons';
+import styles from '../styles/global';
 
-const Confirmation = () => {
+const PINConfirmation = ({navigation}) => {
   const pinView = useRef(null);
   const [showRemoveButton, setShowRemoveButton] = useState(false);
   const [enteredPin, setEnteredPin] = useState('');
@@ -41,9 +42,9 @@ const Confirmation = () => {
           if (key === 'custom_left') {
             pinView.current.clear();
           }
-          if (key === 'custom_right') {
-            alert('Entered Pin: ' + enteredPin);
-          }
+          // if (key === 'custom_right') {
+          //   alert('Entered Pin: ' + enteredPin);
+          // }
           if (key === 'three') {
             alert("You can't use 3");
           }
@@ -53,12 +54,20 @@ const Confirmation = () => {
             <Icon name={'ios-backspace'} size={36} color={'#FFF'} />
           ) : undefined
         }
-        customRightButton={
-          showCompletedButton ? (
-            <Icon name={'ios-unlock'} size={36} color={'#FFF'} />
-          ) : undefined
-        }
+        // customRightButton={
+        //   showCompletedButton ? (
+        //     <Icon name={'ios-unlock'} size={36} color={'#FFF'} />
+        //   ) : undefined
+        // }
       />
+      <View style={[styles.button, styles.marC]}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Transfer Success')}>
+          <View>
+            <Text style={styles.buttonText}>Login</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -73,4 +82,4 @@ const stylesLocal = StyleSheet.create({
   },
 });
 
-export default Confirmation;
+export default PINConfirmation;

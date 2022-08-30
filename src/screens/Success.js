@@ -64,7 +64,9 @@ const Success = ({navigation}) => {
           </View>
         </View>
         <View style={stylesLocal.marTop}>
-          <TouchableOpacity style={stylesLocal.btnOne}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Home')}
+            style={stylesLocal.btnOne}>
             <Text>Continue</Text>
           </TouchableOpacity>
         </View>

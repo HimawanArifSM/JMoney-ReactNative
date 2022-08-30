@@ -1,9 +1,15 @@
-import {View, Text, Dimensions, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  Dimensions,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import React from 'react';
 import {SECONDARY_COLOR} from '../styles/constant';
 import styles from '../styles/global';
 
-const PersonalInfo = () => {
+const PersonalInfo = ({navigation}) => {
   return (
     <View style={styles.padMain}>
       <View>
@@ -40,7 +46,9 @@ const PersonalInfo = () => {
               +62 812-2131-2321
             </Text>
           </View>
-          <Text style={styles.textSecondary}>Manage</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Manage Phone')}>
+            <Text style={styles.textSecondary}>Manage</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>

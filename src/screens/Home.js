@@ -10,43 +10,53 @@ import {
 } from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/Feather';
-import {PRIMARY_COLOR, SECONDARY_COLOR} from '../styles/constant';
+import {SECONDARY_COLOR} from '../styles/constant';
 import ItemList from '../components/ItemList';
 import Data from '../assets/Data';
 
 const Home = ({navigation}) => {
   return (
     <>
-      <View>
-        {/* header */}
-        {/* button */}
-        <View style={stylesLocal.buttonSection}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Transfer')}
-            style={stylesLocal.btnOne}>
-            <Icon name="arrow-up" size={20} />
-            <Text>Transfer</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('TopUp')}
-            style={stylesLocal.btnOne}>
-            <Icon name="plus" size={20} />
-            <Text>Top Up</Text>
-          </TouchableOpacity>
-        </View>
-        {/* content */}
-        <View>
-          <View style={stylesLocal.textBetween}>
-            <Text>Transaction History</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Details')}>
-              <Text>See all</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
       <FlatList
+        ListHeaderComponent={
+          <View>
+            {/* header */}
+            {/* button */}
+            <View style={stylesLocal.buttonSection}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('Transfer')}
+                style={stylesLocal.btnOne}>
+                <Icon name="arrow-up" size={20} />
+                <Text>Transfer</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('TopUp')}
+                style={stylesLocal.btnOne}>
+                <Icon name="plus" size={20} />
+                <Text>Top Up</Text>
+              </TouchableOpacity>
+            </View>
+            {/* content */}
+            <View>
+              <View style={stylesLocal.textBetween}>
+                <Text>Transaction History</Text>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('Details')}>
+                  <Text>See all</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        }
         data={Data}
-        renderItem={ItemList}
+        renderItem={({item}) => {
+          return (
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Transfer Success')}>
+              <ItemList item={item} />
+            </TouchableOpacity>
+          );
+        }}
         keyExtractor={item => String(item.id)}
         contentContainerStyle={stylesLocal.padding}
         // navigasi="TransferInput"

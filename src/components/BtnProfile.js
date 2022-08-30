@@ -3,25 +3,23 @@ import React, {useState} from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import {SECONDARY_COLOR} from '../styles/constant';
 
-const BtnProfile = ({text, icon}) => {
+const BtnProfile = ({text, icon, navigation, navig}) => {
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   return (
-    <TouchableOpacity>
-      <View style={stylesLocal.wraper}>
-        <Text style={stylesLocal.textSecondary}>{text}</Text>
-        <Icon name={icon} size={30} />
-        {icon || text === 'Logout' ? null : (
-          <Switch
-            trackColor={{false: '#767577', true: '#81b0ff'}}
-            thumbColor={isEnabled ? {SECONDARY_COLOR} : '#f4f3f4'}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={toggleSwitch}
-            value={isEnabled}
-          />
-        )}
-      </View>
-    </TouchableOpacity>
+    <View style={stylesLocal.wraper}>
+      <Text style={stylesLocal.textSecondary}>{text}</Text>
+      <Icon name={icon} size={30} />
+      {icon || text === 'Logout' ? null : (
+        <Switch
+          trackColor={{false: '#767577', true: '#81b0ff'}}
+          thumbColor={isEnabled ? {SECONDARY_COLOR} : '#f4f3f4'}
+          ios_backgroundColor="#3e3e3e"
+          onValueChange={toggleSwitch}
+          value={isEnabled}
+        />
+      )}
+    </View>
   );
 };
 

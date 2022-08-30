@@ -1,12 +1,18 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from '../styles/global';
 import BtnProfile from '../components/BtnProfile';
 
-const Profile = () => {
+const Profile = ({navigation}) => {
   return (
-    <View style={styles.padMain}>
+    <ScrollView style={[stylesLocal.pdbtm]}>
       <View style={stylesLocal.profhead}>
         <View style={stylesLocal.pict} />
         <View style={stylesLocal.profEdt}>
@@ -16,12 +22,21 @@ const Profile = () => {
         <Text style={styles.marA}>Robert Chandler</Text>
         <Text style={styles.marA}>Phone Number</Text>
       </View>
-      <BtnProfile text="Personal Information" icon="arrow-right" />
-      <BtnProfile text="Change Password" icon="arrow-right" />
-      <BtnProfile text="Change Pin" icon="arrow-right" />
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Personal Information')}>
+        <BtnProfile text="Personal Information" icon="arrow-right" />
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('Change Password')}>
+        <BtnProfile text="Change Password" icon="arrow-right" />
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate('Change PIN')}>
+        <BtnProfile text="Change Pin" icon="arrow-right" />
+      </TouchableOpacity>
       <BtnProfile text="Notification" />
-      <BtnProfile text="Logout" />
-    </View>
+      <TouchableOpacity>
+        <BtnProfile text="Logout" />
+      </TouchableOpacity>
+    </ScrollView>
   );
 };
 
@@ -43,6 +58,10 @@ const stylesLocal = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 10,
+  },
+  pdbtm: {
+    paddingHorizontal: 10,
+    // paddingBottom: 100,
   },
 });
 
