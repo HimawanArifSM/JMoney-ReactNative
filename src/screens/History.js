@@ -20,31 +20,28 @@ const Details = ({navigation}) => {
   return (
     <View>
       {/* header */}
-
+      <>
+        <View style={stylesLocal.header} />
+        <View style={stylesLocal.padding}>
+          <Text>Transaction History</Text>
+        </View>
+        <View style={stylesLocal.buttonSection}>
+          <View>
+            <TouchableOpacity style={stylesLocal.btnTwo}>
+              <Icon name="arrow-up" size={20} color="red" />
+            </TouchableOpacity>
+          </View>
+          <View>
+            <TouchableOpacity style={stylesLocal.btnTwo}>
+              <Icon name="arrow-down" size={20} color="green" />
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity style={stylesLocal.btnOne}>
+            <Text>Filter by Date</Text>
+          </TouchableOpacity>
+        </View>
+      </>
       <FlatList
-        ListHeaderComponent={
-          <>
-            <View style={stylesLocal.header} />
-            <View style={stylesLocal.padding}>
-              <Text>Transaction History</Text>
-            </View>
-            <View style={stylesLocal.buttonSection}>
-              <View>
-                <TouchableOpacity style={stylesLocal.btnTwo}>
-                  <Icon name="arrow-up" size={20} color="red" />
-                </TouchableOpacity>
-              </View>
-              <View>
-                <TouchableOpacity style={stylesLocal.btnTwo}>
-                  <Icon name="arrow-down" size={20} color="green" />
-                </TouchableOpacity>
-              </View>
-              <TouchableOpacity style={stylesLocal.btnOne}>
-                <Text>Filter by Date</Text>
-              </TouchableOpacity>
-            </View>
-          </>
-        }
         data={Data}
         renderItem={({item}) => {
           return (

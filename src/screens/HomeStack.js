@@ -28,8 +28,8 @@ const HomeStack = () => {
         component={HomeTab}
       />
       <Stack.Screen name="Notification" component={Notification} />
-      <Stack.Screen name="Profile" component={Profile} />
-      <Stack.Screen name="Transfer" component={SearchReceiver} />
+      {/* <Stack.Screen name="Profile" component={Profile} /> */}
+      {/* <Stack.Screen name="Transfer" component={SearchReceiver} /> */}
       <Stack.Screen name="Details" component={Details} />
       <Stack.Screen name="Input Transfer" component={InputAmount} />
       <Stack.Screen name="Transfer Success" component={Success} />
