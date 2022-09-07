@@ -11,6 +11,7 @@ const Input = ({
   onChange,
   value,
   defaultValue,
+  name,
 }) => {
   const [showText, setShow] = React.useState(false);
   return (
@@ -26,6 +27,7 @@ const Input = ({
           onChangeText={onChange}
           value={value}
           defaultValue={defaultValue}
+          name={name}
         />
       </View>
       {secure && (
