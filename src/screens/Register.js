@@ -8,7 +8,7 @@ import * as Yup from 'yup';
 import {register} from '../redux/actions/auth';
 import {resetmsg} from '../redux/reducers/auth';
 
-const registerSchema = Yup.object().shape({
+const RegisterSchema = Yup.object().shape({
   username: Yup.string().min(5).required('Required'),
   email: Yup.string().email('Invalid Email Format').required('Required'),
   password: Yup.string().min(8).required('Required'),
@@ -22,7 +22,7 @@ const FormRegister = (errors, handleChange, handleSubmit) => {
           onChange={handleChange}
           placeholder="Username"
           icon="user"
-          type="text"
+          type="email-address"
           name="username"
         />
       </View>
@@ -84,7 +84,7 @@ function Register({navigation}) {
           Create your account to access Zwallet.
         </Text>
         <Formik
-          validationSchema={registerSchema}
+          validationSchema={RegisterSchema}
           initialValues={{email: '', username: '', password: ''}}
           onSubmit={onRegister}>
           {props => <FormRegister {...props} />}
