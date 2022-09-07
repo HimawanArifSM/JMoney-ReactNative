@@ -9,8 +9,14 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from '../styles/global';
 import BtnProfile from '../components/BtnProfile';
+import {useDispatch, useSelector} from 'react-redux';
+import {logOut} from '../redux/reducers/auth';
 
 const Profile = ({navigation}) => {
+  const dispatch = useDispatch();
+  const exit = () => {
+    dispatch(logOut());
+  };
   return (
     <ScrollView style={[stylesLocal.pdbtm]}>
       <View style={stylesLocal.profhead}>
@@ -33,7 +39,7 @@ const Profile = ({navigation}) => {
         <BtnProfile text="Change Pin" icon="arrow-right" />
       </TouchableOpacity>
       <BtnProfile text="Notification" />
-      <TouchableOpacity>
+      <TouchableOpacity onPress={exit}>
         <BtnProfile text="Logout" />
       </TouchableOpacity>
     </ScrollView>

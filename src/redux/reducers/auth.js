@@ -1,6 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {login, register, createPin} from '../actions/auth';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const initialState = {
   token: '',
