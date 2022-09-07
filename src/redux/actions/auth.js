@@ -3,15 +3,15 @@ import http from '../../helpers/http';
 import qs from 'qs';
 import PushNotification from 'react-native-push-notification';
 
-export const login = createAsyncThunk('/auth/login', async request => {
+export const login = createAsyncThunk('auth/login', async request => {
   const results = {};
   try {
     const send = qs.stringify(request);
     console.log(send);
-    const {data} = await http().post('/auth/login', send);
+    const {data} = await http().post('auth/login', send);
     console.log(data);
-    results.data = data.result;
-    results.massage = data.massage;
+    results.data = data.results;
+    results.message = data.message;
     PushNotification.localNotification({
       channelId: 'general',
       title: 'Login Success',
@@ -19,12 +19,12 @@ export const login = createAsyncThunk('/auth/login', async request => {
     });
     return results;
   } catch (e) {
-    results.error = e.response.data.massage;
+    results.error = e.response.data.message;
     return results;
   }
 });
 
-export const register = createAsyncThunk('/auth/register', async request => {
+export const register = createAsyncThunk('auth/register', async request => {
   const results = {};
   try {
     const send = qs.stringify(request);
@@ -32,7 +32,7 @@ export const register = createAsyncThunk('/auth/register', async request => {
     const {data} = await http().post('/auth/register', send);
     console.log(data);
     results.data = data.result;
-    results.massage = data.massage;
+    results.message = data.message;
     return results;
   } catch (e) {
     results.error = e.response.data.result[0].msg;
@@ -41,7 +41,7 @@ export const register = createAsyncThunk('/auth/register', async request => {
   }
 });
 
-export const createPin = createAsyncThunk('/auth/createpin', async request => {
+export const createPin = createAsyncThunk('auth/createpin', async request => {
   const results = {};
   try {
     const send = qs.stringify(request);
@@ -49,7 +49,7 @@ export const createPin = createAsyncThunk('/auth/createpin', async request => {
     const {data} = await http().post('/auth/createPin', send);
     console.log(data);
     results.data = data.result;
-    results.massage = data.massage;
+    results.message = data.message;
     return results;
   } catch (e) {
     return e;

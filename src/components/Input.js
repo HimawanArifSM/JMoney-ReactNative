@@ -24,10 +24,9 @@ const Input = ({
           placeholder={placeholder}
           keyboardType={type}
           secureTextEntry={!showText}
-          onChangeText={onChange}
+          onChangeText={onChange(name)}
           value={value}
           defaultValue={defaultValue}
-          name={name}
         />
       </View>
       {secure && (

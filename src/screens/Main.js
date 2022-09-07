@@ -18,17 +18,30 @@ const Main = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Register" component={Register} />
-        <Stack.Screen name="Create Pin" component={CreatePin} />
-        <Stack.Screen name="Create Pin Success" component={CreatePinSuccess} />
-        <Stack.Screen name="Forgot Password" component={ForgotPassword} />
-        <Stack.Screen name="Enter New Password" component={EnterNewPassword} />
-        <Stack.Screen
-          options={{headerShown: false}}
-          name="HomeStack"
-          component={HomeStack}
-        />
+        {token ? (
+          <>
+            <Stack.Screen
+              options={{headerShown: false}}
+              name="HomeStack"
+              component={HomeStack}
+            />
+          </>
+        ) : (
+          <>
+            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="Register" component={Register} />
+            <Stack.Screen name="Create Pin" component={CreatePin} />
+            <Stack.Screen
+              name="Create Pin Success"
+              component={CreatePinSuccess}
+            />
+            <Stack.Screen name="Forgot Password" component={ForgotPassword} />
+            <Stack.Screen
+              name="Enter New Password"
+              component={EnterNewPassword}
+            />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

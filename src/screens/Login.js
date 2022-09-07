@@ -3,7 +3,7 @@ import React from 'react';
 import styles from '../styles/global.js';
 import Input from '../components/Input.js';
 import {login} from '../redux/actions/auth.js';
-import Formik from 'formik';
+import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {useDispatch, useSelector} from 'react-redux';
 import axios from 'axios';
@@ -33,9 +33,10 @@ const FormLogin = ({errors, handleChange, handleSubmit, navigation}) => {
           icon="lock"
           secure={true}
           name="password"
+          type="text"
         />
       </View>
-      <TouchableOpacity onPress={() => navigation.navigate('Forgot-password')}>
+      <TouchableOpacity onPress={() => navigation.navigate('Forgot Password')}>
         <Text style={[styles.textRight, styles.marA, styles.colorPrim]}>
           Forgot password?
         </Text>
@@ -64,51 +65,65 @@ const FormLogin = ({errors, handleChange, handleSubmit, navigation}) => {
 
 const Login = ({navigation}) => {
   // const token = useSelector(state => state.auth.token);
+  // console.log(token);
   // const dispatch = useDispatch();
   // const onLogin = val => {
   //   const email = val.email;
   //   const password = val.password;
   //   const req = {email, password};
+  //   console.log(req);
   //   dispatch(login(req));
   // };
   // React.useEffect(() => {
   //   if (token) {
   //     navigation.navigate('HomeTab');
   //   }
-  // });
-  const handleLogin = async value => {
-    try {
-      const result = await axios.post('auth/login', value);
-      AsyncStorage.set('token', result.data.data.token);
-      if (AsyncStorage.get('token') !== null) {
-        navigation.navigate('HomeTab');
-      }
-    } catch (e) {
-      console.log(e.response);
-      //window.alert(e.response.data.msg);
-    }
+  // }, [navigation, token]);
+  // const onLogin = async value => {
+  //   try {
+  //     const result = await axios.post('auth/login', value);
+  //     AsyncStorage.set('token', result.data.data.token);
+  //     if (AsyncStorage.get('token') !== null) {
+  //       navigation.navigate('HomeTab');
+  //     }
+  //   } catch (e) {
+  //     console.log(e.result);
+  //     //window.alert(e.response.data.msg);
+  //   }
+  // };
+  const dispatch = useDispatch();
+  const token = useSelector(state => state.auth?.token);
+  //const navigate = useNavigate();
+
+  const onLogin = value => {
+    const data = {email: value.email, password: value.password};
+    dispatch(login(data));
+    console.log(data);
   };
+
+  React.useEffect(() => {
+    if (token) {
+      navigation.navigate('HomeTab');
+    }
+  }, [navigation, token]);
   return (
-    <>
-      <ScrollView style={styles.wrapper}>
-        <View style={styles.header}>
-          <Text style={styles.textMain}>J-Money</Text>
-        </View>
-        <View style={[styles.mainContent, styles.padA]}>
-          <Text style={styles.textMain}>Login</Text>
-          <Text style={[styles.textSecondary, styles.marA]}>
-            Login to your existing account to access all the features in
-            Zwallet.
-          </Text>
-        </View>
-        <Formik
-          validationSchema={LoginSchema}
-          initialValues={{email: '', password: ''}}
-          onSubmit={handleLogin}>
-          {props => <FormLogin {...props} navigation={navigation} />}
-        </Formik>
-      </ScrollView>
-    </>
+    <ScrollView style={styles.wrapper}>
+      <View style={styles.header}>
+        <Text style={styles.textMain}>J-Money</Text>
+      </View>
+      <View style={[styles.mainContent, styles.padA]}>
+        <Text style={styles.textMain}>Login</Text>
+        <Text style={[styles.textSecondary, styles.marA]}>
+          Login to your existing account to access all the features in Zwallet.
+        </Text>
+      </View>
+      <Formik
+        validationSchema={LoginSchema}
+        initialValues={{email: '', password: ''}}
+        onSubmit={onLogin}>
+        {props => <FormLogin {...props} navigation={navigation} />}
+      </Formik>
+    </ScrollView>
   );
 };
 
