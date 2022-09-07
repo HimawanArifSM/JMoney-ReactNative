@@ -1,9 +1,8 @@
 import {
   View,
   Text,
-  ScrollView,
   StyleSheet,
-  Image,
+  // Image,
   Dimensions,
   TouchableOpacity,
   FlatList,
@@ -13,7 +12,6 @@ import Icon from 'react-native-vector-icons/Feather';
 import {PRIMARY_COLOR, SECONDARY_COLOR} from '../styles/constant';
 import ItemList from '../components/ItemList';
 
-import graph from '../assets/graphic.png';
 import Data from '../assets/Data';
 
 const Details = ({navigation}) => {

@@ -2,12 +2,12 @@ import {
   View,
   Text,
   StyleSheet,
-  Image,
+  // Image,
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
 import React from 'react';
-import Icon from 'react-native-vector-icons/Feather';
+// import Icon from 'react-native-vector-icons/Feather';
 import {PRIMARY_COLOR, SECONDARY_COLOR} from '../styles/constant';
 import Input from '../components/Input';
 

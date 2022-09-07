@@ -4,7 +4,7 @@ import styles from '../styles/global';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {PRIMARY_COLOR} from '../styles/constant';
 
-const CreatePinSuccess = () => {
+const CreatePinSuccess = ({navigation}) => {
   return (
     <ScrollView style={styles.wrapper}>
       <View style={styles.header}>
@@ -24,7 +24,7 @@ const CreatePinSuccess = () => {
           </Text>
         </View>
         <View style={[styles.buttonWrapper, styles.marC, styles.padB]}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
             <View style={styles.button}>
               <Text style={styles.buttonText}>Confirm</Text>
             </View>

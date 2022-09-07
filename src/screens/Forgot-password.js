@@ -7,12 +7,12 @@ const ForgotPassword = ({navigation}) => {
   const [email, setEmail] = React.useState('');
 
   const onSubmit = () => {
-    if (email === 'admin@mail.com') {
+    if (email === '') {
       Alert.alert('Success', 'Email registered', [
         {
           text: 'OK',
           onPress: () => {
-            navigation.navigate('Enter-new-password');
+            navigation.navigate('Enter New Password');
           },
         },
       ]);

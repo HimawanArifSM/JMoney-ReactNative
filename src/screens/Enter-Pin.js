@@ -60,11 +60,11 @@ const PINConfirmation = ({navigation}) => {
         //   ) : undefined
         // }
       />
-      <View style={[styles.button, styles.marC]}>
+      <View style={[styles.button, styles.marC, stylesLocal.mid]}>
         <TouchableOpacity
           onPress={() => navigation.navigate('Transfer Success')}>
           <View>
-            <Text style={styles.buttonText}>Login</Text>
+            <Text style={styles.buttonText}>Continue</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -79,6 +79,9 @@ const stylesLocal = StyleSheet.create({
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
     elevation: 3,
+  },
+  mid: {
+    alignSelf: 'center',
   },
 });
 

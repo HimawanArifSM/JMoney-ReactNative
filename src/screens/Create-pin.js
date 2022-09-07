@@ -5,7 +5,7 @@ import ReactNativePinView from 'react-native-pin-view';
 // import PinView from 'react-native-pin-view';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const CreatePin = () => {
+const CreatePin = ({navigation}) => {
   const pinView = useRef(null);
   const [showRemoveButton, setShowRemoveButton] = useState(false);
   const [enteredPin, setEnteredPin] = useState('');
@@ -55,19 +55,20 @@ const CreatePin = () => {
               <Icon name={'ios-backspace'} size={36} color={'#FFF'} />
             ) : undefined
           }
-          customRightButton={
-            showCompletedButton ? (
-              <Icon name={'ios-unlock'} size={36} color={'#FFF'} />
-            ) : undefined
-          }
+          // customRightButton={
+          //   showCompletedButton ? (
+          //     <Icon name={'ios-unlock'} size={36} color={'#FFF'} />
+          //   ) : undefined
+          // }
         />
-        {/* <View style={[styles.buttonWrapper, styles.marC]}>
-          <TouchableOpacity onPress={onSubmit}>
+        <View style={[styles.buttonWrapper, styles.marC]}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Create Pin Success')}>
             <View style={styles.button}>
               <Text style={styles.buttonText}>Confirm</Text>
             </View>
           </TouchableOpacity>
-        </View> */}
+        </View>
       </View>
     </ScrollView>
   );

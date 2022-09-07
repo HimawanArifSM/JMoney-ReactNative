@@ -17,12 +17,12 @@ const Notification = () => {
   return (
     <ScrollView style={[styles.padMain, styles.padBtm]}>
       <View>
-        <View style={styles.marA}>
+        {/* <View style={styles.marA}>
           <Text style={styles.textSecondary}>
             You must enter your current password and then type your new password
             twice.
           </Text>
-        </View>
+        </View> */}
       </View>
       <Text style={styles.marB}>Today</Text>
       <View

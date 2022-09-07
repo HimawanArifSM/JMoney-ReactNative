@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 
 import Home from './Home';
-import History from './History';
 import {PRIMARY_COLOR} from '../styles/constant';
 import SearchReceiver from './SearchReceiver';
 import Topup from './Topup';
