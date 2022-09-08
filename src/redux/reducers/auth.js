@@ -43,7 +43,7 @@ export const auth = createSlice({
       state.successmsg = null;
     });
     build.addCase(register.fulfilled, (state, action) => {
-      state.successmsg = action.payload?.massage;
+      state.successmsg = action.payload?.message;
       state.errormsg = action.payload?.error;
     });
     build.addCase(createPin.pending, state => {

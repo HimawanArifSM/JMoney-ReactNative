@@ -5,8 +5,8 @@ import Input from '../components/Input.js';
 import {useDispatch, useSelector} from 'react-redux';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
-import {register} from '../redux/actions/auth';
-import {resetmsg} from '../redux/reducers/auth';
+import {register} from '../redux/actions/auth.js';
+import {getEmail, resetmsg} from '../redux/reducers/auth';
 
 const RegisterSchema = Yup.object().shape({
   username: Yup.string().min(5).required('Required'),
@@ -14,7 +14,7 @@ const RegisterSchema = Yup.object().shape({
   password: Yup.string().min(8).required('Required'),
 });
 
-const FormRegister = (errors, handleChange, handleSubmit) => {
+const FormRegister = ({errors, handleChange, handleSubmit}) => {
   return (
     <>
       <View style={[styles.inputWrapper, styles.marB]}>
@@ -65,7 +65,9 @@ function Register({navigation}) {
       email: value.email,
       password: value.password,
     };
+    // console.log(data);
     dispatch(register(data));
+    dispatch(getEmail(value.email));
   };
   React.useEffect(() => {
     if (successmsg) {
@@ -85,7 +87,7 @@ function Register({navigation}) {
         </Text>
         <Formik
           validationSchema={RegisterSchema}
-          initialValues={{email: '', username: '', password: ''}}
+          initialValues={{username: '', email: '', password: ''}}
           onSubmit={onRegister}>
           {props => <FormRegister {...props} />}
         </Formik>

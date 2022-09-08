@@ -15,7 +15,7 @@ import {PRIMARY_COLOR} from '../styles/constant';
 import SearchReceiver from './SearchReceiver';
 import Topup from './Topup';
 import Profile from './Profile';
-import Input from '../components/Input';
+import Input from '../components/Input.js';
 import styles from '../styles/global';
 
 const BottomTab = createBottomTabNavigator();
@@ -59,12 +59,13 @@ const HomeTab = () => {
           header: () => (
             <View style={stylesLocal.transfer}>
               <Text style={styles.headText}>Find Receiver</Text>
-              <Input
+              {/* <Input
                 style={styles.marB}
                 placeholder="Search receiver here"
                 icon="search"
                 type="text"
-              />
+                name="search"
+              /> */}
             </View>
           ),
         }}

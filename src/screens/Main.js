@@ -30,7 +30,7 @@ const Main = () => {
           <>
             <Stack.Screen name="Login" component={Login} />
             <Stack.Screen name="Register" component={Register} />
-            <Stack.Screen name="Create Pin" component={CreatePin} />
+            <Stack.Screen name="Create PIN" component={CreatePin} />
             <Stack.Screen
               name="Create Pin Success"
               component={CreatePinSuccess}

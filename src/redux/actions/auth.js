@@ -30,8 +30,8 @@ export const register = createAsyncThunk('auth/register', async request => {
     const send = qs.stringify(request);
     console.log(send);
     const {data} = await http().post('auth/register', send);
-    console.log(data);
-    results.data = data.results;
+    console.log('tes' + data);
+    results.data = data.result;
     results.message = data.message;
     return results;
   } catch (e) {

@@ -27,7 +27,7 @@ const HomeStack = () => {
         name="HomeTab"
         component={HomeTab}
       />
-      <Stack.Screen name="Create PIN" component={CreatePin} />
+      {/* <Stack.Screen name="Create PIN" component={CreatePin} /> */}
       <Stack.Screen name="Notification" component={Notification} />
       <Stack.Screen name="Details" component={Details} />
       <Stack.Screen
