@@ -20,7 +20,7 @@ import styles from '../styles/global';
 
 const BottomTab = createBottomTabNavigator();
 
-const HomeTab = () => {
+const HomeTab = ({errors, handleChange, handleSubmit}) => {
   return (
     <BottomTab.Navigator>
       <BottomTab.Screen
@@ -63,8 +63,9 @@ const HomeTab = () => {
                 style={styles.marB}
                 placeholder="Search receiver here"
                 icon="search"
-                type="text"
+                type="email-address"
                 name="search"
+                onChange={handleChange}
               /> */}
             </View>
           ),

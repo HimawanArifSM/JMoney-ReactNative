@@ -1,27 +1,86 @@
-import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
+import {View, Text, ScrollView} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import styles from '../styles/global';
 import ReactNativePinView from 'react-native-pin-view';
-// import PinView from 'react-native-pin-view';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {PRIMARY_COLOR, SECONDARY_COLOR, TEXT_DARK} from '../styles/constant';
+import {createPin} from '../redux/actions/auth';
+import {useDispatch, useSelector} from 'react-redux';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import {resetmsg} from '../redux/reducers/auth';
+import {Formik} from 'formik';
+import {nothing} from 'immer';
 
-const CreatePin = ({navigation}) => {
-  const pinView = useRef(null);
-  const [showRemoveButton, setShowRemoveButton] = useState(false);
-  const [enteredPin, setEnteredPin] = useState('');
-  const [showCompletedButton, setShowCompletedButton] = useState(false);
+const FormPin = ({handleSubmit, setPin, pin}) => {
+  const pinView = React.useRef(null);
+  const [showRemoveButton, setShowRemoveButton] = React.useState(false);
+  const [showCompletedButton, setShowCompletedButton] = React.useState(false);
   useEffect(() => {
-    if (enteredPin.length > 0) {
+    if (pin.length > 0) {
       setShowRemoveButton(true);
     } else {
       setShowRemoveButton(false);
     }
-    if (enteredPin.length === 6) {
+    if (pin.length === 6) {
       setShowCompletedButton(true);
     } else {
       setShowCompletedButton(false);
     }
-  }, [enteredPin]);
+  }, [pin]);
+  return (
+    <ReactNativePinView
+      inputSize={32}
+      ref={pinView}
+      pinLength={6}
+      buttonSize={60}
+      inputViewFilledStyle={{backgroundColor: PRIMARY_COLOR}}
+      buttonViewStyle={{backgroundColor: SECONDARY_COLOR}}
+      buttonTextStyle={{color: TEXT_DARK, fontSize: 32}}
+      onValueChange={value => setPin(value)}
+      onButtonPress={key => {
+        if (key === 'custom_left') {
+          pinView.current.clear();
+        }
+        if (key === 'custom_right') {
+          setShowCompletedButton(!showCompletedButton);
+        }
+      }}
+      customLeftButton={
+        showRemoveButton ? (
+          <Icon name={'ios-backspace'} size={36} color={TEXT_DARK} />
+        ) : undefined
+      }
+      customRightButton={
+        showCompletedButton ? (
+          <TouchableOpacity onPress={handleSubmit}>
+            <Icon name={'checkmark-outline'} size={36} />
+          </TouchableOpacity>
+        ) : undefined
+      }
+    />
+  );
+};
+
+const CreatePin = ({navigation}) => {
+  const dispatch = useDispatch();
+  const [pin, setPin] = React.useState('');
+  const successmsg = useSelector(state => state.auth.successmsg);
+
+  const email = useSelector(state => state.auth.email);
+
+  const onSubmit = val => {
+    console.log(pin);
+    const request = {email, pin: pin};
+    dispatch(createPin(request));
+  };
+
+  React.useEffect(() => {
+    dispatch(resetmsg());
+    if (successmsg) {
+      navigation.navigate('Create Pin Success');
+    }
+  }, [successmsg, navigation, dispatch]);
+
   return (
     <ScrollView style={styles.wrapper}>
       <View style={styles.header}>
@@ -33,42 +92,9 @@ const CreatePin = ({navigation}) => {
           Create a PIN that's contain 6 digits number for security purpose in
           Zwallet.
         </Text>
-        <ReactNativePinView
-          inputSize={32}
-          ref={pinView}
-          pinLength={6}
-          buttonSize={60}
-          onValueChange={value => setEnteredPin(value)}
-          onButtonPress={key => {
-            if (key === 'custom_left') {
-              pinView.current.clear();
-            }
-            if (key === 'custom_right') {
-              alert('Entered Pin: ' + enteredPin);
-            }
-            if (key === 'three') {
-              alert("You can't use 3");
-            }
-          }}
-          customLeftButton={
-            showRemoveButton ? (
-              <Icon name={'ios-backspace'} size={36} color={'#FFF'} />
-            ) : undefined
-          }
-          // customRightButton={
-          //   showCompletedButton ? (
-          //     <Icon name={'ios-unlock'} size={36} color={'#FFF'} />
-          //   ) : undefined
-          // }
-        />
-        <View style={[styles.buttonWrapper, styles.marC]}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Create Pin Success')}>
-            <View style={styles.button}>
-              <Text style={styles.buttonText}>Confirm</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
+        <Formik initialValues={{pin: pin}} onSubmit={onSubmit}>
+          {props => <FormPin {...props} setPin={setPin} pin={pin} />}
+        </Formik>
       </View>
     </ScrollView>
   );

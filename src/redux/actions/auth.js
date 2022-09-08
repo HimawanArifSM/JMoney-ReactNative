@@ -46,9 +46,9 @@ export const createPin = createAsyncThunk('auth/createpin', async request => {
   try {
     const send = qs.stringify(request);
     console.log(send);
-    const {data} = await http().post('/auth/createPin', send);
+    const {data} = await http().post('auth/createPin', send);
     console.log(data);
-    results.data = data.result;
+    results.data = data.results;
     results.message = data.message;
     return results;
   } catch (e) {
