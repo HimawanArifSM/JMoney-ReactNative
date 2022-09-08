@@ -1,7 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import http from '../../helpers/http';
 import qs from 'qs';
-import PushNotification from 'react-native-push-notification';
 
 export const login = createAsyncThunk('auth/login', async request => {
   const results = {};
@@ -12,11 +11,6 @@ export const login = createAsyncThunk('auth/login', async request => {
     console.log(data);
     results.data = data.results;
     results.message = data.message;
-    PushNotification.localNotification({
-      channelId: 'general',
-      title: 'Login Success',
-      message: 'Hello, Welcome to j-money',
-    });
     return results;
   } catch (e) {
     results.error = e.response.data.message;

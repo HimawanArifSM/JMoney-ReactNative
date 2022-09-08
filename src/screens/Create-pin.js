@@ -8,72 +8,28 @@ import {createPin} from '../redux/actions/auth';
 import {useDispatch, useSelector} from 'react-redux';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {resetmsg} from '../redux/reducers/auth';
-import {Formik} from 'formik';
-import {nothing} from 'immer';
 
-const FormPin = ({handleSubmit, setPin, pin}) => {
-  const pinView = React.useRef(null);
-  const [showRemoveButton, setShowRemoveButton] = React.useState(false);
-  const [showCompletedButton, setShowCompletedButton] = React.useState(false);
+const CreatePin = ({navigation}) => {
+  const dispatch = useDispatch();
+  const successmsg = useSelector(state => state.auth.successmsg);
+  const pinView = useRef(null);
+  const [showRemoveButton, setShowRemoveButton] = useState(false);
+  const [enteredPin, setEnteredPin] = useState('');
+  const [showCompletedButton, setShowCompletedButton] = useState(false);
   useEffect(() => {
-    if (pin.length > 0) {
+    if (enteredPin.length > 0) {
       setShowRemoveButton(true);
     } else {
       setShowRemoveButton(false);
     }
-    if (pin.length === 6) {
+    if (enteredPin.length === 6) {
       setShowCompletedButton(true);
     } else {
       setShowCompletedButton(false);
     }
-  }, [pin]);
-  return (
-    <ReactNativePinView
-      inputSize={32}
-      ref={pinView}
-      pinLength={6}
-      buttonSize={60}
-      inputViewFilledStyle={{backgroundColor: PRIMARY_COLOR}}
-      buttonViewStyle={{backgroundColor: SECONDARY_COLOR}}
-      buttonTextStyle={{color: TEXT_DARK, fontSize: 32}}
-      onValueChange={value => setPin(value)}
-      onButtonPress={key => {
-        if (key === 'custom_left') {
-          pinView.current.clear();
-        }
-        if (key === 'custom_right') {
-          setShowCompletedButton(!showCompletedButton);
-        }
-      }}
-      customLeftButton={
-        showRemoveButton ? (
-          <Icon name={'ios-backspace'} size={36} color={TEXT_DARK} />
-        ) : undefined
-      }
-      customRightButton={
-        showCompletedButton ? (
-          <TouchableOpacity onPress={handleSubmit}>
-            <Icon name={'checkmark-outline'} size={36} />
-          </TouchableOpacity>
-        ) : undefined
-      }
-    />
-  );
-};
-
-const CreatePin = ({navigation}) => {
-  const dispatch = useDispatch();
-  const [pin, setPin] = React.useState('');
-  const successmsg = useSelector(state => state.auth.successmsg);
+  }, [enteredPin]);
 
   const email = useSelector(state => state.auth.email);
-
-  const onSubmit = val => {
-    console.log(pin);
-    const request = {email, pin: pin};
-    dispatch(createPin(request));
-  };
-
   React.useEffect(() => {
     dispatch(resetmsg());
     if (successmsg) {
@@ -92,9 +48,36 @@ const CreatePin = ({navigation}) => {
           Create a PIN that's contain 6 digits number for security purpose in
           Zwallet.
         </Text>
-        <Formik initialValues={{pin: pin}} onSubmit={onSubmit}>
-          {props => <FormPin {...props} setPin={setPin} pin={pin} />}
-        </Formik>
+        <ReactNativePinView
+          inputViewFilledStyle={{backgroundColor: PRIMARY_COLOR}}
+          buttonViewStyle={{backgroundColor: SECONDARY_COLOR}}
+          buttonTextStyle={{color: TEXT_DARK, fontSize: 32}}
+          inputSize={32}
+          ref={pinView}
+          pinLength={6}
+          buttonSize={60}
+          onValueChange={value => setEnteredPin(value)}
+          onButtonPress={key => {
+            if (key === 'custom_left') {
+              pinView.current.clear();
+            }
+            if (key === 'custom_right') {
+              setShowCompletedButton(!showCompletedButton);
+              const request = {email, pin: enteredPin};
+              dispatch(createPin(request));
+            }
+          }}
+          customLeftButton={
+            showRemoveButton ? (
+              <Icon name={'ios-backspace'} size={36} color={TEXT_DARK} />
+            ) : undefined
+          }
+          customRightButton={
+            showCompletedButton ? (
+              <Icon name={'checkmark-outline'} size={36} color={TEXT_DARK} />
+            ) : undefined
+          }
+        />
       </View>
     </ScrollView>
   );

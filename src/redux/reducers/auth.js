@@ -51,7 +51,7 @@ export const auth = createSlice({
       state.successmsg = null;
     });
     build.addCase(createPin.fulfilled, (state, action) => {
-      state.successmsg = action.payload?.massage;
+      state.successmsg = action.payload?.message;
     });
   },
 });

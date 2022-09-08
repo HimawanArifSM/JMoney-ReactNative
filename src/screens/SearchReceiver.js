@@ -2,26 +2,40 @@ import {
   View,
   Text,
   StyleSheet,
-  Image,
   Dimensions,
   TouchableOpacity,
   FlatList,
 } from 'react-native';
 import React from 'react';
 import {PRIMARY_COLOR, SECONDARY_COLOR} from '../styles/constant';
-import ItemList from '../components/ItemList';
-
+import {useDispatch, useSelector} from 'react-redux';
+import ItemListTF from '../components/ItemListTF';
 import Data from '../assets/Data';
-import Input from '../components/Input';
+
+import {
+  getAllProfile,
+  getimage,
+  getname,
+  getphone,
+  getreceiver,
+} from '../redux/reducers/transactions';
 
 const SearchReceiver = ({navigation}) => {
+  const allprofile = useSelector(state => state.transactions.results);
+  const dispatch = useDispatch();
+  console.log(allprofile);
+  const PassData = item => {
+    dispatch(getname(item.fullname));
+    dispatch(getimage(item.picture));
+    dispatch(getphone(item.phonenumber));
+    dispatch(getreceiver(item.iduser));
+    navigation.navigate('Input Transfer');
+  };
+  React.useEffect(() => {
+    dispatch(getAllProfile());
+  }, [dispatch]);
   return (
     <View>
-      {/* header */}
-      {/* <View style={stylesLocal.header}>
-        <Input placeholder="Search receiver here" icon="search" type="text" />
-      </View> */}
-
       <FlatList
         ListHeaderComponent={
           <View style={stylesLocal.padding}>
@@ -29,12 +43,11 @@ const SearchReceiver = ({navigation}) => {
             <Text>Contacts.Counts</Text>
           </View>
         }
-        data={Data}
+        data={allprofile}
         renderItem={({item}) => {
           return (
-            <TouchableOpacity
-              onPress={() => navigation.navigate('Input Transfer')}>
-              <ItemList item={item} />
+            <TouchableOpacity onPress={() => PassData(item)}>
+              <ItemListTF item={item} />
             </TouchableOpacity>
           );
         }}
