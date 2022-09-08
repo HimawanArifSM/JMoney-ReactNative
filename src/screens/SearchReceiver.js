@@ -10,7 +10,6 @@ import React from 'react';
 import {PRIMARY_COLOR, SECONDARY_COLOR} from '../styles/constant';
 import {useDispatch, useSelector} from 'react-redux';
 import ItemListTF from '../components/ItemListTF';
-import Data from '../assets/Data';
 
 import {
   getAllProfile,
@@ -24,6 +23,7 @@ const SearchReceiver = ({navigation}) => {
   const allprofile = useSelector(state => state.transactions.results);
   const dispatch = useDispatch();
   console.log(allprofile);
+  const totalData = useSelector(state => state.transactions.totalData);
   const PassData = item => {
     dispatch(getname(item.fullname));
     dispatch(getimage(item.picture));
@@ -40,7 +40,7 @@ const SearchReceiver = ({navigation}) => {
         ListHeaderComponent={
           <View style={stylesLocal.padding}>
             <Text>Contacts</Text>
-            <Text>Contacts.Counts</Text>
+            <Text>Find {totalData} Contacts</Text>
           </View>
         }
         data={allprofile}

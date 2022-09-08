@@ -51,6 +51,7 @@ const transaction = createSlice({
     });
     build.addCase(getAllProfile.fulfilled, (state, action) => {
       state.results = action.payload.data;
+      state.totalData = action.payload.page.totalData;
     });
   },
 });
