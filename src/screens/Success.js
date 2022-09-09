@@ -11,8 +11,17 @@ import React from 'react';
 import {PRIMARY_COLOR, SECONDARY_COLOR} from '../styles/constant';
 import Icon from 'react-native-vector-icons/AntDesign';
 import styles from '../styles/global';
+import {useSelector} from 'react-redux';
 
 const Success = ({navigation}) => {
+  const data = useSelector(state => state.profile.data);
+  const name = useSelector(state => state.transactions.name);
+  const phone = useSelector(state => state.transactions.phone);
+  const amount = useSelector(state => state.transactions.amount);
+  const notes = useSelector(state => state.transactions.notes);
+  const time = useSelector(state => state.transactions.date);
+  const dateOnly = time.slice(0, 10);
+  const hours = time.slice(11, 16);
   return (
     <ScrollView>
       <View style={stylesLocal.header}>
@@ -26,41 +35,41 @@ const Success = ({navigation}) => {
         <View style={stylesLocal.elements}>
           <View style={stylesLocal.elementLayout}>
             <Text>Amount</Text>
-            <Text>Rp Amount</Text>
+            <Text>Rp {amount}</Text>
           </View>
           <View style={stylesLocal.elementLayout}>
             <Text>Balance Left</Text>
-            <Text>Rp Amount</Text>
+            <Text>Rp {data.balance - amount}</Text>
           </View>
         </View>
         <View style={stylesLocal.elements}>
           <View style={stylesLocal.elementLayout}>
             <Text>Date</Text>
-            <Text>Date Now</Text>
+            <Text>{dateOnly}</Text>
           </View>
           <View style={stylesLocal.elementLayout}>
             <Text>Time</Text>
-            <Text>Time Now</Text>
+            <Text>{hours}</Text>
           </View>
         </View>
         <View style={stylesLocal.elementLayout2}>
           <Text>Notes</Text>
-          <Text>Notes from reducer</Text>
+          <Text>{notes}</Text>
         </View>
         <Text style={stylesLocal.marTop}>From</Text>
         <View style={stylesLocal.headerContent}>
           <View style={stylesLocal.pict} />
           <View style={stylesLocal.marLeft}>
-            <Text>Robert Chandler</Text>
-            <Text>Phone number</Text>
+            <Text>{data.fullname}</Text>
+            <Text>{data.phonenumber}</Text>
           </View>
         </View>
         <Text style={stylesLocal.marTop}>To</Text>
         <View style={stylesLocal.headerContent}>
           <View style={stylesLocal.pict} />
           <View style={stylesLocal.marLeft}>
-            <Text>Samuel Sushi</Text>
-            <Text>Phone number</Text>
+            <Text>{name}</Text>
+            <Text>{phone}</Text>
           </View>
         </View>
         <View style={stylesLocal.marTop}>

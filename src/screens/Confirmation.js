@@ -8,16 +8,36 @@ import {
 } from 'react-native';
 import React from 'react';
 import {PRIMARY_COLOR, SECONDARY_COLOR} from '../styles/constant';
+import {useDispatch, useSelector} from 'react-redux';
+import {getdate} from '../redux/reducers/transactions';
+import {resetmsg} from '../redux/reducers/auth';
 
 const Confirmation = ({navigation}) => {
+  const dispatch = useDispatch();
+  const name = useSelector(state => state.transactions.name);
+  const image = useSelector(state => state.transactions.image);
+  const phone = useSelector(state => state.transactions.phone);
+  const profile = useSelector(state => state.profile.data);
+  const amount = useSelector(state => state.transactions.amount);
+  const notes = useSelector(state => state.transactions.notes);
+  const date = new Date().toISOString();
+  const dateOnly = date.slice(0, 10);
+  const hours = date.slice(11, 16);
+  const onSubmit = val => {
+    dispatch(getdate(date));
+    navigation.navigate('PIN Confirmation');
+  };
+  React.useEffect(() => {
+    dispatch(resetmsg());
+  }, [dispatch]);
   return (
     <View>
       <View style={stylesLocal.header}>
         <View style={stylesLocal.headerContent}>
           <View style={stylesLocal.pict} />
           <View style={stylesLocal.marLeft}>
-            <Text>Samuel Sushi</Text>
-            <Text>Phone number</Text>
+            <Text>{name}</Text>
+            <Text>{phone}</Text>
           </View>
         </View>
       </View>
@@ -25,31 +45,29 @@ const Confirmation = ({navigation}) => {
         <View style={stylesLocal.elements}>
           <View style={stylesLocal.elementLayout}>
             <Text>Amount</Text>
-            <Text>Rp Amount</Text>
+            <Text>Rp {amount}</Text>
           </View>
           <View style={stylesLocal.elementLayout}>
             <Text>Balance Left</Text>
-            <Text>Rp Amount</Text>
+            <Text>Rp {profile.balance - amount}</Text>
           </View>
         </View>
         <View style={stylesLocal.elements}>
           <View style={stylesLocal.elementLayout}>
             <Text>Date</Text>
-            <Text>Date Now</Text>
+            <Text>{dateOnly}</Text>
           </View>
           <View style={stylesLocal.elementLayout}>
             <Text>Time</Text>
-            <Text>Time Now</Text>
+            <Text>{hours}</Text>
           </View>
         </View>
         <View style={stylesLocal.elementLayout2}>
           <Text>Notes</Text>
-          <Text>Notes from reducer</Text>
+          <Text>{notes}</Text>
         </View>
         <View>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('PIN Confirmation')}
-            style={stylesLocal.btnOne}>
+          <TouchableOpacity onPress={onSubmit} style={stylesLocal.btnOne}>
             <Text>Continue</Text>
           </TouchableOpacity>
         </View>

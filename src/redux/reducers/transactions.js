@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {getAllProfile} from '../actions/transaction';
+import {getAllProfile, transfer} from '../actions/transaction';
 
 const initialState = {
   getAllProfile: [],
@@ -52,6 +52,14 @@ const transaction = createSlice({
     build.addCase(getAllProfile.fulfilled, (state, action) => {
       state.results = action.payload.data;
       state.totalData = action.payload.page.totalData;
+    });
+    build.addCase(transfer.pending, state => {
+      state.errormsg = null;
+      state.successmsg = null;
+    });
+    build.addCase(transfer.fulfilled, (state, action) => {
+      state.successmsg = action.payload?.message;
+      state.errormsg = action.payload?.error;
     });
   },
 });
