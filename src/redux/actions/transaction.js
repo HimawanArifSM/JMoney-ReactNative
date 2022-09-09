@@ -42,9 +42,9 @@ export const topUp = createAsyncThunk(
     const results = {};
     try {
       const send = qs.stringify(request);
-      const {data} = await http(token).patch('authenticated/topup', send);
+      const {data} = await http(token).post('authenticated/topup', send);
       console.log(data);
-      results.data = data.results;
+      results.data = data.message;
       results.message = data.message;
       return results;
     } catch (e) {

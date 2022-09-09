@@ -30,7 +30,7 @@ const HomeTab = ({errors, handleChange, handleSubmit}) => {
   const [show, setShow] = React.useState(false);
   const [amount, setAmount] = React.useState('');
   const token = useSelector(state => state.auth.token);
-  const successmsg = useSelector(state => state.transactions?.successmsg);
+  const successmsg = useSelector(state => state.transactions.successmsg);
   const dispatch = useDispatch();
   const submit = () => {
     const request = {amount};
