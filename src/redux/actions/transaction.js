@@ -35,3 +35,21 @@ export const transfer = createAsyncThunk(
     }
   },
 );
+
+export const topUp = createAsyncThunk(
+  'authenticated/topup',
+  async ({token, request}) => {
+    const results = {};
+    try {
+      const send = qs.stringify(request);
+      const {data} = await http(token).patch('authenticated/topup', send);
+      console.log(data);
+      results.data = data.results;
+      results.message = data.message;
+      return results;
+    } catch (e) {
+      console.log(e);
+      return e;
+    }
+  },
+);

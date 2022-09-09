@@ -8,19 +8,41 @@ import {
   StyleSheet,
   Image,
   Dimensions,
+  Modal,
+  TextInput,
 } from 'react-native';
 
 import Home from './Home';
-import {PRIMARY_COLOR} from '../styles/constant';
+import {PRIMARY_COLOR, SECONDARY_COLOR, TEXT_DARK} from '../styles/constant';
 import SearchReceiver from './SearchReceiver';
 import Topup from './Topup';
 import Profile from './Profile';
 import Input from '../components/Input.js';
 import styles from '../styles/global';
+import {useDispatch, useSelector} from 'react-redux';
+import {topUp} from '../redux/actions/transaction';
+import {resetmsg} from '../redux/reducers/transactions';
+import {getUserLogin} from '../redux/actions/profile';
 
 const BottomTab = createBottomTabNavigator();
 
 const HomeTab = ({errors, handleChange, handleSubmit}) => {
+  const [show, setShow] = React.useState(false);
+  const [amount, setAmount] = React.useState('');
+  const token = useSelector(state => state.auth.token);
+  const successmsg = useSelector(state => state.transactions?.successmsg);
+  const dispatch = useDispatch();
+  const submit = () => {
+    const request = {amount};
+    dispatch(topUp({token, request}));
+  };
+  React.useEffect(() => {
+    if (successmsg) {
+      dispatch(resetmsg());
+      dispatch(getUserLogin(token));
+      setShow(false);
+    }
+  }, [dispatch, token, successmsg]);
   return (
     <BottomTab.Navigator>
       <BottomTab.Screen
@@ -78,16 +100,50 @@ const HomeTab = ({errors, handleChange, handleSubmit}) => {
           tabBarIcon: ({focused, color, size}) => (
             <Icon name="plus" color={color} size={size} />
           ),
-          header: () => (
-            <View style={stylesLocal.topUp}>
+          header: ({navigation}) => (
+            <View style={stylesLocal.topUp2}>
               <Text style={styles.headText}>Top Up</Text>
               <View style={stylesLocal.topUpContent}>
-                <Icon name="plus" size={30} color={PRIMARY_COLOR} />
+                <TouchableOpacity onPress={() => setShow(!show)}>
+                  <Icon name="plus" size={25} color={PRIMARY_COLOR} />
+                </TouchableOpacity>
                 <View style={stylesLocal.marLeft}>
                   <Text>Virtual Account</Text>
                   <Text>Virtual Account Number</Text>
                 </View>
               </View>
+              <Modal
+                animationType="fade"
+                transparent={true}
+                visible={show}
+                onRequestClose={() => setShow(!show)}>
+                <View style={stylesLocal.modal}>
+                  <View style={stylesLocal.wrapModal}>
+                    <Text style={stylesLocal.titleModal}>
+                      Input Amount Here
+                    </Text>
+                    <TextInput
+                      style={stylesLocal.input}
+                      keyboardType="decimal-pad"
+                      placeholder="Min 20000"
+                      value={amount}
+                      onChangeText={setAmount}
+                    />
+                    <View style={stylesLocal.wrapButton}>
+                      <TouchableOpacity
+                        style={stylesLocal.cancel}
+                        onPress={() => setShow(!show)}>
+                        <Text style={stylesLocal.acount}>Cancel</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        style={stylesLocal.topUp}
+                        onPress={() => submit()}>
+                        <Text style={stylesLocal.acount}>Top Up</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
+                </View>
+              </Modal>
             </View>
           ),
         }}
@@ -136,7 +192,7 @@ const stylesLocal = StyleSheet.create({
     padding: 10,
     elevation: 3,
   },
-  topUp: {
+  topUp2: {
     flexDirection: 'column',
     justifyContent: 'space-evenly',
     backgroundColor: PRIMARY_COLOR,
@@ -177,6 +233,59 @@ const stylesLocal = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 10,
+  },
+  modal: {
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    flex: 1,
+  },
+  wrapModal: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    height: Dimensions.get('screen').height / 2,
+    margin: 50,
+    elevation: 4,
+  },
+  titleModal: {
+    fontSize: 22,
+    fontWeight: '700',
+    lineHeight: 27,
+    marginBottom: 30,
+    color: TEXT_DARK,
+  },
+  input: {
+    height: 40,
+    borderBottomColor: SECONDARY_COLOR,
+    borderBottomWidth: 1,
+    fontSize: 18,
+    color: TEXT_DARK,
+  },
+  wrapButton: {
+    flexDirection: 'row',
+    marginTop: 20,
+  },
+  cancel: {
+    height: 30,
+    backgroundColor: SECONDARY_COLOR,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 10,
+    width: 70,
+    elevation: 6,
+  },
+  acount: {
+    fontSize: 14,
+    fontWeight: '400',
+    lineHeight: 19,
+    color: TEXT_DARK,
+  },
+  topUp: {
+    height: 30,
+    backgroundColor: PRIMARY_COLOR,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 70,
+    elevation: 6,
   },
 });
 
