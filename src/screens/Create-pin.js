@@ -6,7 +6,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {PRIMARY_COLOR, SECONDARY_COLOR, TEXT_DARK} from '../styles/constant';
 import {createPin} from '../redux/actions/auth';
 import {useDispatch, useSelector} from 'react-redux';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import {resetmsg} from '../redux/reducers/auth';
 
 const CreatePin = ({navigation}) => {
