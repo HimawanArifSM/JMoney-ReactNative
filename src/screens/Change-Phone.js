@@ -8,9 +8,53 @@ import {
 import React from 'react';
 import {SECONDARY_COLOR} from '../styles/constant';
 import styles from '../styles/global';
-import Input from '../components/Input';
+import Input2 from '../components/Input2';
+import * as Yup from 'yup';
+import {Formik} from 'formik';
+import {useDispatch, useSelector} from 'react-redux';
+import {updatePhone} from '../redux/actions/profile';
+import Input3 from '../components/Input3';
 
-const ChangePhone = ({navigation}) => {
+const ChangePhoneSchema = Yup.object().shape({
+  phonenumber: Yup.string().min(11).max(13).required('Required'),
+});
+
+const FormPhone = ({handleChange, handleSubit, val}) => {
+  return (
+    <>
+      <View style={[styles.inputWrapper]}>
+        <Input2
+          placeholder="Enter your phone number"
+          icon="phone"
+          type="numeric"
+          name="phonenumber"
+          onChange={handleChange}
+          // value={val.phone}
+        />
+      </View>
+      <View style={stylesLocal.marTop}>
+        <TouchableOpacity onPress={handleSubit} style={stylesLocal.btnOne}>
+          <Text>Continue</Text>
+        </TouchableOpacity>
+      </View>
+    </>
+  );
+};
+
+const ChangePhone = ({navigatation}) => {
+  const dispatch = useDispatch();
+  const token = useSelector(state => state.auth.token);
+  const succesmsg = useSelector(state => state.profile.succesmsg);
+  const submit = val => {
+    const data = {token: token, phonenumber: val.phonenumber};
+    dispatch(updatePhone(data));
+    console.log(val);
+  };
+  React.useEffect(() => {
+    if (succesmsg) {
+      navigatation.navigate('Manage Phone');
+    }
+  }, [navigatation, succesmsg]);
   return (
     <View style={[styles.padMain, stylesLocal.spBtwn]}>
       <View>
@@ -21,20 +65,39 @@ const ChangePhone = ({navigation}) => {
           </Text>
         </View>
       </View>
-      <View style={[styles.inputWrapper]}>
-        <Input
-          placeholder="Enter your phone number"
-          icon="phone"
-          type="numeric"
-        />
-      </View>
-      <View style={stylesLocal.marTop}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Personal Information')}
-          style={stylesLocal.btnOne}>
-          <Text>Continue</Text>
-        </TouchableOpacity>
-      </View>
+      {/* <Formik
+        validationSchema={ChangePhoneSchema}
+        initialValues={{phonenumber: ''}}
+        onSubmit={submit}>
+        {props => <FormPhone {...props} />}
+      </Formik> */}
+      <Formik
+        initialValues={{phonenumber: ''}}
+        validationSchema={ChangePhoneSchema}
+        onSubmit={submit}>
+        {({errors, handleChange, handleSubmit, values, isValid}) => (
+          <>
+            <View style={[styles.inputWrapper]}>
+              <Input3
+                placeholder="Enter your phone number"
+                icon="phone"
+                type="numeric"
+                name="phonenumber"
+                onChange={handleChange('phonenumber')}
+                value={values.phonenumber}
+              />
+            </View>
+            {errors.phonenumber && <Text>{errors.phonenumber}</Text>}
+            <View style={stylesLocal.marTop}>
+              <TouchableOpacity
+                onPress={handleSubmit}
+                style={stylesLocal.btnOne}>
+                <Text>Continue</Text>
+              </TouchableOpacity>
+            </View>
+          </>
+        )}
+      </Formik>
     </View>
   );
 };

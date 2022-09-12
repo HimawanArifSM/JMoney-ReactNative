@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
@@ -27,6 +27,7 @@ import {getUserLogin} from '../redux/actions/profile';
 const BottomTab = createBottomTabNavigator();
 
 const HomeTab = ({errors, handleChange, handleSubmit}) => {
+  const data = useSelector(state => state.profile.data);
   const [show, setShow] = React.useState(false);
   const [amount, setAmount] = React.useState('');
   const token = useSelector(state => state.auth.token);
@@ -37,9 +38,9 @@ const HomeTab = ({errors, handleChange, handleSubmit}) => {
     dispatch(topUp({token, request}));
   };
   React.useEffect(() => {
+    dispatch(getUserLogin(token));
     if (successmsg) {
       dispatch(resetmsg());
-      dispatch(getUserLogin(token));
       setShow(false);
     }
   }, [dispatch, token, successmsg]);
@@ -60,7 +61,7 @@ const HomeTab = ({errors, handleChange, handleSubmit}) => {
                 </TouchableOpacity>
                 <View style={stylesLocal.marLeft}>
                   <Text style={stylesLocal.textWhite}>Balance</Text>
-                  <Text style={stylesLocal.textWhite}>Amount</Text>
+                  <Text style={stylesLocal.textWhite}>{data?.balance}</Text>
                 </View>
               </View>
               <TouchableOpacity

@@ -11,12 +11,18 @@ import styles from '../styles/global';
 import BtnProfile from '../components/BtnProfile';
 import {useDispatch, useSelector} from 'react-redux';
 import {logOut} from '../redux/reducers/auth';
+import {getUserLogin} from '../redux/actions/profile';
 
 const Profile = ({navigation}) => {
+  const data = useSelector(state => state.profile.data);
+  const token = useSelector(state => state.auth.token);
   const dispatch = useDispatch();
   const exit = () => {
     dispatch(logOut());
   };
+  React.useEffect(() => {
+    dispatch(getUserLogin(token));
+  }, [dispatch, token]);
   return (
     <ScrollView style={[stylesLocal.pdbtm]}>
       <View style={stylesLocal.profhead}>
@@ -25,8 +31,8 @@ const Profile = ({navigation}) => {
           <Icon name="pencil" size={10} />
           <Text style={styles.textSecondary}>Edit</Text>
         </View>
-        <Text style={styles.marA}>Robert Chandler</Text>
-        <Text style={styles.marA}>Phone Number</Text>
+        <Text style={styles.marA}>{data.fullname}</Text>
+        <Text style={styles.marA}>{data.phonenumber}</Text>
       </View>
       <TouchableOpacity
         onPress={() => navigation.navigate('Personal Information')}>
