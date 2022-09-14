@@ -29,9 +29,10 @@ export const profile = createSlice({
       state.successmsg = null;
     });
     build.addCase(updatePhone.fulfilled, (state, action) => {
-      state.data = action.payload.data;
+      // state.data = action.payload.data;
       state.successmsg = action.payload.message;
       state.errormsg = action.payload.errormsg;
+      state.data.phonenumber = action.payload.data.phonenumber;
     });
   },
 });

@@ -32,7 +32,7 @@ const Profile = ({navigation}) => {
           <Text style={styles.textSecondary}>Edit</Text>
         </View>
         <Text style={styles.marA}>{data.fullname}</Text>
-        <Text style={styles.marA}>{data.phonenumber}</Text>
+        <Text style={styles.marA}>+62 {data.phonenumber.slice(1)}</Text>
       </View>
       <TouchableOpacity
         onPress={() => navigation.navigate('Personal Information')}>

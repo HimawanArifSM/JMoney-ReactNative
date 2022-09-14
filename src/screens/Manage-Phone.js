@@ -11,8 +11,11 @@ import styles from '../styles/global';
 import Input from '../components/Input';
 import BtnProfile from '../components/BtnProfile';
 import Icon from 'react-native-vector-icons/Feather';
+import {useSelector} from 'react-redux';
 
 const ManagePhone = ({navigation}) => {
+  const data = useSelector(state => state.profile.data);
+  const phone = data?.phonenumber?.slice(1);
   return (
     <View style={[styles.padMain]}>
       <View>
@@ -32,9 +35,7 @@ const ManagePhone = ({navigation}) => {
         ]}>
         <View>
           <Text>Primary</Text>
-          <Text style={[stylesLocal.textMain, styles.marA]}>
-            +62 812-2131-2321
-          </Text>
+          <Text style={[stylesLocal.textMain, styles.marA]}>+62 {phone}</Text>
         </View>
         <TouchableOpacity onPress={() => navigation.navigate('Change Phone')}>
           <Icon name="clipboard" size={25} />

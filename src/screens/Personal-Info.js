@@ -8,8 +8,12 @@ import {
 import React from 'react';
 import {SECONDARY_COLOR} from '../styles/constant';
 import styles from '../styles/global';
+import {useSelector} from 'react-redux';
 
 const PersonalInfo = ({navigation}) => {
+  const data = useSelector(state => state.profile.data);
+  const phone = data?.phonenumber?.slice(1);
+  const sName = data.fullname.split(' ');
   return (
     <View style={styles.padMain}>
       <View>
@@ -21,17 +25,17 @@ const PersonalInfo = ({navigation}) => {
         </View>
         <View style={[stylesLocal.elementLayout2, styles.marA, styles.padMain]}>
           <Text>First Name</Text>
-          <Text style={[stylesLocal.textMain, styles.marA]}>Robert</Text>
+          <Text style={[stylesLocal.textMain, styles.marA]}>{sName[0]}</Text>
         </View>
         <View style={[stylesLocal.elementLayout2, styles.marA, styles.padMain]}>
           <Text>Second Name</Text>
-          <Text style={[stylesLocal.textMain, styles.marA]}>Chandler</Text>
+          <Text style={[stylesLocal.textMain, styles.marA]}>
+            {sName.slice(1)}
+          </Text>
         </View>
         <View style={[stylesLocal.elementLayout2, styles.marA, styles.padMain]}>
           <Text>Email</Text>
-          <Text style={[stylesLocal.textMain, styles.marA]}>
-            email@mail.com
-          </Text>
+          <Text style={[stylesLocal.textMain, styles.marA]}>{data.email}</Text>
         </View>
         <View
           style={[
@@ -42,9 +46,7 @@ const PersonalInfo = ({navigation}) => {
           ]}>
           <View>
             <Text>Phone Number</Text>
-            <Text style={[stylesLocal.textMain, styles.marA]}>
-              +62 812-2131-2321
-            </Text>
+            <Text style={[stylesLocal.textMain, styles.marA]}>+62 {phone}</Text>
           </View>
           <TouchableOpacity onPress={() => navigation.navigate('Manage Phone')}>
             <Text style={styles.textSecondary}>Manage</Text>

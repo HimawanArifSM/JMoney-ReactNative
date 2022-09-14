@@ -12,14 +12,16 @@ import Input2 from '../components/Input2';
 import * as Yup from 'yup';
 import {Formik} from 'formik';
 import {useDispatch, useSelector} from 'react-redux';
-import {updatePhone} from '../redux/actions/profile';
+import {updatePhone} from '../redux/actions/profile.js';
 import Input3 from '../components/Input3';
+import Input from '../components/Input';
+import {resetmsg} from '../redux/reducers/profile';
 
 const ChangePhoneSchema = Yup.object().shape({
-  phonenumber: Yup.string().min(11).max(13).required('Required'),
+  phonenumber: Yup.string().required('Required'),
 });
 
-const FormPhone = ({handleChange, handleSubit, val}) => {
+const FormPhone = ({handleChange, handleSubmit, val}) => {
   return (
     <>
       <View style={[styles.inputWrapper]}>
@@ -33,7 +35,7 @@ const FormPhone = ({handleChange, handleSubit, val}) => {
         />
       </View>
       <View style={stylesLocal.marTop}>
-        <TouchableOpacity onPress={handleSubit} style={stylesLocal.btnOne}>
+        <TouchableOpacity onPress={handleSubmit} style={stylesLocal.btnOne}>
           <Text>Continue</Text>
         </TouchableOpacity>
       </View>
@@ -41,20 +43,27 @@ const FormPhone = ({handleChange, handleSubit, val}) => {
   );
 };
 
-const ChangePhone = ({navigatation}) => {
+const ChangePhone = ({navigation}) => {
   const dispatch = useDispatch();
   const token = useSelector(state => state.auth.token);
   const succesmsg = useSelector(state => state.profile.succesmsg);
+  const errormsg = useSelector(state => state.profile.errormsg);
+  // console.log(token);
   const submit = val => {
-    const data = {token: token, phonenumber: val.phonenumber};
-    dispatch(updatePhone(data));
     console.log(val);
+    const req = {token: token, phonenumber: val.phonenumber};
+    dispatch(updatePhone(req));
+    // console.log(val);
+    // if (succesmsg !== null) {
+    //   navigation.navigate('Manage Phone');
+    // }
   };
   React.useEffect(() => {
-    if (succesmsg) {
-      navigatation.navigate('Manage Phone');
+    if (succesmsg !== null && errormsg === undefined) {
+      dispatch(resetmsg());
+      navigation.navigate('Manage Phone');
     }
-  }, [navigatation, succesmsg]);
+  }, [navigation, succesmsg, dispatch, errormsg]);
   return (
     <View style={[styles.padMain, stylesLocal.spBtwn]}>
       <View>
@@ -65,13 +74,13 @@ const ChangePhone = ({navigatation}) => {
           </Text>
         </View>
       </View>
-      {/* <Formik
+      <Formik
         validationSchema={ChangePhoneSchema}
         initialValues={{phonenumber: ''}}
         onSubmit={submit}>
         {props => <FormPhone {...props} />}
-      </Formik> */}
-      <Formik
+      </Formik>
+      {/* <Formik
         initialValues={{phonenumber: ''}}
         validationSchema={ChangePhoneSchema}
         onSubmit={submit}>
@@ -97,7 +106,7 @@ const ChangePhone = ({navigatation}) => {
             </View>
           </>
         )}
-      </Formik>
+      </Formik> */}
     </View>
   );
 };
