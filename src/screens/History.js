@@ -13,8 +13,16 @@ import {PRIMARY_COLOR, SECONDARY_COLOR} from '../styles/constant';
 import ItemList from '../components/ItemList';
 
 import Data from '../assets/Data';
+import {useDispatch, useSelector} from 'react-redux';
+import {getHistoryTransaction} from '../redux/actions/transaction';
 
 const Details = ({navigation}) => {
+  const dispatch = useDispatch();
+  const data = useSelector(state => state.transactions.data);
+  const token = useSelector(state => state.auth.token);
+  React.useEffect(() => {
+    dispatch(getHistoryTransaction(token));
+  }, [dispatch, token]);
   return (
     <View>
       {/* header */}
@@ -40,7 +48,7 @@ const Details = ({navigation}) => {
         </View>
       </>
       <FlatList
-        data={Data}
+        data={data}
         renderItem={({item}) => {
           return (
             <TouchableOpacity

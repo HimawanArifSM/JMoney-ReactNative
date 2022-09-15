@@ -1,5 +1,10 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {getAllProfile, topUp, transfer} from '../actions/transaction';
+import {
+  getAllProfile,
+  getHistoryTransaction,
+  topUp,
+  transfer,
+} from '../actions/transaction';
 
 const initialState = {
   getAllProfile: [],
@@ -67,6 +72,13 @@ const transaction = createSlice({
     });
     build.addCase(topUp.fulfilled, (state, action) => {
       state.successmsg = action.payload?.message;
+    });
+    build.addCase(getHistoryTransaction.pending, state => {
+      state.errormsg = null;
+      state.successmsg = null;
+    });
+    build.addCase(getHistoryTransaction.fulfilled, (state, action) => {
+      state.data = action.payload.data;
     });
   },
 });

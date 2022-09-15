@@ -53,3 +53,19 @@ export const topUp = createAsyncThunk(
     }
   },
 );
+
+export const getHistoryTransaction = createAsyncThunk(
+  'authenticated/historyTransactions',
+  async token => {
+    const results = {};
+    try {
+      const {data} = await http(token).get('authenticated/historyTransactions');
+      results.data = data.results;
+      results.message = data.message;
+      return results;
+    } catch (e) {
+      console.log(e);
+      return e;
+    }
+  },
+);

@@ -15,8 +15,16 @@ import ItemList from '../components/ItemList';
 
 import graph from '../assets/graphic.png';
 import Data from '../assets/Data';
+import {useDispatch, useSelector} from 'react-redux';
+import {getHistoryTransaction} from '../redux/actions/transaction';
 
 const Details = ({navigation}) => {
+  const dispatch = useDispatch();
+  const data = useSelector(state => state.transactions.data);
+  const token = useSelector(state => state.auth.token);
+  React.useEffect(() => {
+    dispatch(getHistoryTransaction(token));
+  }, [dispatch, token]);
   return (
     <>
       {/* header */}
@@ -62,7 +70,7 @@ const Details = ({navigation}) => {
             </View>
           </View>
         }
-        data={Data}
+        data={data}
         renderItem={({item}) => {
           return (
             <TouchableOpacity

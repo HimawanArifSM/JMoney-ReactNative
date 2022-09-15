@@ -12,9 +12,17 @@ import React from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import {SECONDARY_COLOR} from '../styles/constant';
 import ItemList from '../components/ItemList';
-import Data from '../assets/Data';
+// import Data from '../assets/Data';
+import {useDispatch, useSelector} from 'react-redux';
+import {getHistoryTransaction} from '../redux/actions/transaction';
 
 const Home = ({navigation}) => {
+  const dispatch = useDispatch();
+  const data = useSelector(state => state.transactions.data);
+  const token = useSelector(state => state.auth.token);
+  React.useEffect(() => {
+    dispatch(getHistoryTransaction(token));
+  }, [dispatch, token]);
   return (
     <>
       <FlatList
@@ -48,7 +56,7 @@ const Home = ({navigation}) => {
             </View>
           </View>
         }
-        data={Data}
+        data={data}
         renderItem={({item}) => {
           return (
             <TouchableOpacity
