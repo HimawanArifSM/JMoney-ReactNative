@@ -17,6 +17,7 @@ import ChangePhone from './Change-Phone';
 import CreatePin from './Create-pin';
 import {PRIMARY_COLOR} from '../styles/constant';
 import Modal from '../components/Modal';
+import ChangePinNew from './New-Pin';
 
 const Stack = createNativeStackNavigator();
 
@@ -84,6 +85,11 @@ const HomeStack = () => {
       <Stack.Screen
         name="Modal"
         component={Modal}
+        options={{headerStyle: {backgroundColor: PRIMARY_COLOR}}}
+      />
+      <Stack.Screen
+        name="New PIN"
+        component={ChangePinNew}
         options={{headerStyle: {backgroundColor: PRIMARY_COLOR}}}
       />
     </Stack.Navigator>

@@ -47,11 +47,53 @@ export const changePassword = createAsyncThunk(
     console.log(request);
     try {
       const send = qs.stringify(request);
-      console.log(send);
+      console.log('ini send ' + send);
       const {data} = await http(token).patch(
         'authenticated/changePassword',
         send,
       );
+      console.log(data);
+      // results.data = data.results;
+      results.message = data.message;
+      return results;
+    } catch (e) {
+      console.log(e);
+      return e;
+    }
+  },
+);
+
+export const checkPin = createAsyncThunk(
+  'authenticated/checkPin',
+  async request => {
+    const token = request.token;
+    const results = {};
+    console.log('ini request' + request);
+    try {
+      const send = qs.stringify(request);
+      console.log('ini send ', send);
+      const {data} = await http(token).post('authenticated/checkPin', send);
+      console.log(data);
+      // results.data = data.results;
+      results.message = data.message;
+      return results;
+    } catch (e) {
+      console.log(e);
+      return e;
+    }
+  },
+);
+
+export const updatePin = createAsyncThunk(
+  'authenticated/updatePin',
+  async request => {
+    const token = request.token;
+    const results = {};
+    console.log('ini request' + request);
+    try {
+      const send = qs.stringify(request);
+      console.log('ini send ', send);
+      const {data} = await http(token).patch('authenticated/updatePin', send);
       console.log(data);
       // results.data = data.results;
       results.message = data.message;

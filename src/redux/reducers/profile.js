@@ -1,5 +1,11 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {changePassword, getUserLogin, updatePhone} from '../actions/profile';
+import {
+  changePassword,
+  checkPin,
+  getUserLogin,
+  updatePhone,
+  updatePin,
+} from '../actions/profile';
 
 const initialState = {
   data: {},
@@ -42,9 +48,25 @@ export const profile = createSlice({
       state.successmsg = action.payload.message;
       state.errormsg = action.payload.errormsg;
     });
+    build.addCase(checkPin.pending, state => {
+      state.errormsg = null;
+      state.successmsg = null;
+    });
+    build.addCase(checkPin.fulfilled, (state, action) => {
+      state.successmsg = action.payload.message;
+      state.errormsg = action.payload.errormsg;
+    });
+    build.addCase(updatePin.pending, state => {
+      state.errormsg = null;
+      state.successmsg = null;
+    });
+    build.addCase(updatePin.fulfilled, (state, action) => {
+      state.successmsg = action.payload.message;
+      state.errormsg = action.payload.errormsg;
+    });
   },
 });
 
 export default profile.reducer;
-export {getUserLogin, updatePhone, changePassword};
+export {getUserLogin, updatePhone, changePassword, checkPin};
 export const {resetmsg} = profile.actions;

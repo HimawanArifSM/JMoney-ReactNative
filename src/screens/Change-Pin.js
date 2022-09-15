@@ -7,12 +7,18 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
-import {PRIMARY_COLOR, SECONDARY_COLOR} from '../styles/constant';
+import {PRIMARY_COLOR, SECONDARY_COLOR, TEXT_DARK} from '../styles/constant';
 import ReactNativePinView from 'react-native-pin-view';
 import Icon from 'react-native-vector-icons/Ionicons';
 import styles from '../styles/global';
+import {useDispatch, useSelector} from 'react-redux';
+import {checkPin} from '../redux/actions/profile';
+import {resetmsg} from '../redux/reducers/profile';
 
 const ChangePin = ({navigation}) => {
+  const dispatch = useDispatch();
+  const successmsg = useSelector(state => state.profile.successmsg);
+  const token = useSelector(state => state.auth.token);
   const pinView = useRef(null);
   const [showRemoveButton, setShowRemoveButton] = useState(false);
   const [enteredPin, setEnteredPin] = useState('');
@@ -29,6 +35,13 @@ const ChangePin = ({navigation}) => {
       setShowCompletedButton(false);
     }
   }, [enteredPin]);
+  React.useEffect(() => {
+    if (successmsg === 'match') {
+      dispatch(resetmsg());
+      navigation.navigate('New PIN');
+    }
+  }, [successmsg, navigation, dispatch]);
+
   return (
     <View>
       <View style={stylesLocal.header} />
@@ -41,6 +54,9 @@ const ChangePin = ({navigation}) => {
         </View>
       </View>
       <ReactNativePinView
+        inputViewFilledStyle={{backgroundColor: PRIMARY_COLOR}}
+        buttonViewStyle={{backgroundColor: SECONDARY_COLOR}}
+        buttonTextStyle={{color: TEXT_DARK, fontSize: 32}}
         inputSize={32}
         ref={pinView}
         pinLength={6}
@@ -51,30 +67,30 @@ const ChangePin = ({navigation}) => {
             pinView.current.clear();
           }
           if (key === 'custom_right') {
-            alert('Entered Pin: ' + enteredPin);
-          }
-          if (key === 'three') {
-            alert("You can't use 3");
+            setShowCompletedButton(!showCompletedButton);
+            // console.log(enteredPin);
+            const request = {token: token, pin: enteredPin};
+            dispatch(checkPin(request));
           }
         }}
         customLeftButton={
           showRemoveButton ? (
-            <Icon name={'ios-backspace'} size={36} color={'#FFF'} />
+            <Icon name={'ios-backspace'} size={36} color={TEXT_DARK} />
           ) : undefined
         }
-        // customRightButton={
-        //   showCompletedButton ? (
-        //     <Icon name={'ios-unlock'} size={36} color={'#FFF'} />
-        //   ) : undefined
-        // }
+        customRightButton={
+          showCompletedButton ? (
+            <Icon name={'checkmark-outline'} size={36} color={TEXT_DARK} />
+          ) : undefined
+        }
       />
-      <View style={[styles.button, styles.marC]}>
+      {/* <View style={[styles.button, styles.marC]}>
         <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
           <View>
             <Text style={styles.buttonText}>Login</Text>
           </View>
         </TouchableOpacity>
-      </View>
+      </View> */}
     </View>
   );
 };
