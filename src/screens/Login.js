@@ -14,7 +14,7 @@ const LoginSchema = Yup.object().shape({
 
 const FormLogin = ({errors, handleChange, handleSubmit, navigation}) => {
   return (
-    <>
+    <View>
       <View style={[styles.inputWrapper, styles.marB]}>
         <Input
           onChange={handleChange}
@@ -24,7 +24,7 @@ const FormLogin = ({errors, handleChange, handleSubmit, navigation}) => {
           name="email"
         />
       </View>
-      <View style={[styles.inputWrapper, styles.marC]}>
+      <View style={[styles.inputWrapper, styles.marA]}>
         <Input
           onChange={handleChange}
           placeholder="Password"
@@ -57,7 +57,7 @@ const FormLogin = ({errors, handleChange, handleSubmit, navigation}) => {
           </TouchableOpacity>
         </Text>
       </View>
-    </>
+    </View>
   );
 };
 
@@ -114,13 +114,13 @@ const Login = ({navigation}) => {
         <Text style={[styles.textSecondary, styles.marA]}>
           Login to your existing account to access all the features in Zwallet.
         </Text>
+        <Formik
+          validationSchema={LoginSchema}
+          initialValues={{email: '', password: ''}}
+          onSubmit={onLogin}>
+          {props => <FormLogin {...props} navigation={navigation} />}
+        </Formik>
       </View>
-      <Formik
-        validationSchema={LoginSchema}
-        initialValues={{email: '', password: ''}}
-        onSubmit={onLogin}>
-        {props => <FormLogin {...props} navigation={navigation} />}
-      </Formik>
     </ScrollView>
   );
 };

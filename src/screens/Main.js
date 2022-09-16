@@ -28,15 +28,33 @@ const Main = () => {
           </>
         ) : (
           <>
-            <Stack.Screen name="Login" component={Login} />
-            <Stack.Screen name="Register" component={Register} />
-            <Stack.Screen name="Create PIN" component={CreatePin} />
             <Stack.Screen
+              options={{headerShown: false}}
+              name="Login"
+              component={Login}
+            />
+            <Stack.Screen
+              options={{headerShown: false}}
+              name="Register"
+              component={Register}
+            />
+            <Stack.Screen
+              options={{headerShown: false}}
+              name="Create PIN"
+              component={CreatePin}
+            />
+            <Stack.Screen
+              options={{headerShown: false}}
               name="Create Pin Success"
               component={CreatePinSuccess}
             />
-            <Stack.Screen name="Forgot Password" component={ForgotPassword} />
             <Stack.Screen
+              options={{headerShown: false}}
+              name="Forgot Password"
+              component={ForgotPassword}
+            />
+            <Stack.Screen
+              options={{headerShown: false}}
               name="Enter New Password"
               component={EnterNewPassword}
             />

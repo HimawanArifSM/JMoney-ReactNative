@@ -117,7 +117,8 @@ const HomeTab = ({errors, handleChange, handleSubmit}) => {
                 animationType="fade"
                 transparent={true}
                 visible={show}
-                onRequestClose={() => setShow(!show)}>
+                onRequestClose={() => setShow(!show)}
+                style={stylesLocal.br}>
                 <View style={stylesLocal.modal}>
                   <View style={stylesLocal.wrapModal}>
                     <Text style={stylesLocal.titleModal}>
@@ -238,6 +239,10 @@ const stylesLocal = StyleSheet.create({
   modal: {
     backgroundColor: 'rgba(0,0,0,0.5)',
     flex: 1,
+    borderRadius: 15,
+  },
+  br: {
+    borderRadius: 15,
   },
   wrapModal: {
     alignItems: 'center',

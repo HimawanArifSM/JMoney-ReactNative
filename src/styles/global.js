@@ -1,12 +1,13 @@
 import {Dimensions, StyleSheet} from 'react-native';
 import {PRIMARY_COLOR, SECONDARY_COLOR} from './constant';
 
-const height1 = Dimensions.get('screen').width / 2;
+const height1 = Dimensions.get('screen').width / 3;
 const height2 = Dimensions.get('screen').height - 280;
 
 const styles = StyleSheet.create({
   wrapper: {
-    flex: 1,
+    // flex: 1,
+    height: Dimensions.get('screen').height,
     backgroundColor: PRIMARY_COLOR,
   },
   wrapper2: {

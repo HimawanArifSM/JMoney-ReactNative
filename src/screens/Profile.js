@@ -63,6 +63,7 @@ const stylesLocal = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'column',
     alignItems: 'center',
+    marginBottom: 10,
     marginTop: 10,
   },
   profEdt: {
