@@ -1,6 +1,6 @@
 import axios from 'axios';
-
-const url = 'http://192.168.43.196:3333/';
+import {BACKEND_URL} from '@env';
+// const url = 'http://192.168.43.196:3333/';
 
 const http = token => {
   const headers = {};
@@ -9,7 +9,7 @@ const http = token => {
   }
   return axios.create({
     headers,
-    baseURL: url,
+    baseURL: BACKEND_URL,
   });
 };
 
