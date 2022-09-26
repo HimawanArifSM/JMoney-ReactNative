@@ -5,6 +5,7 @@ import {
   getUserLogin,
   updatePhone,
   updatePin,
+  updateProfile,
 } from '../actions/profile';
 
 const initialState = {
@@ -63,6 +64,15 @@ export const profile = createSlice({
     build.addCase(updatePin.fulfilled, (state, action) => {
       state.successmsg = action.payload.message;
       state.errormsg = action.payload.errormsg;
+    });
+    build.addCase(updateProfile.pending, state => {
+      state.errormsg = null;
+      state.successmsg = null;
+    });
+    build.addCase(updateProfile.fulfilled, (state, action) => {
+      state.successmsg = action.payload.message;
+      state.errormsg = action.payload.errormsg;
+      state.data = action.payload?.data;
     });
   },
 });

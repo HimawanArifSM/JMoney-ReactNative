@@ -8,6 +8,7 @@ export const getUserLogin = createAsyncThunk(
     const results = {};
     try {
       const {data} = await http(token).get('authenticated/profiles');
+      console.log(data);
       results.data = data.results;
       results.message = data.message;
       return results;
@@ -96,6 +97,27 @@ export const updatePin = createAsyncThunk(
       const {data} = await http(token).patch('authenticated/updatePin', send);
       console.log(data);
       // results.data = data.results;
+      results.message = data.message;
+      return results;
+    } catch (e) {
+      console.log(e);
+      return e;
+    }
+  },
+);
+
+export const updateProfile = createAsyncThunk(
+  'authenticated/update-profile',
+  async request => {
+    const token = request.token;
+    const results = {};
+    console.log('ini request' + request);
+    try {
+      const send = qs.stringify(request);
+      console.log('ini send ', send);
+      const {data} = await http(token).patch('authenticated/profiles', send);
+      console.log(data);
+      results.data = data.results;
       results.message = data.message;
       return results;
     } catch (e) {
