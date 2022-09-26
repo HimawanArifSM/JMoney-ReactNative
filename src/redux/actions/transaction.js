@@ -56,12 +56,17 @@ export const topUp = createAsyncThunk(
 
 export const getHistoryTransaction = createAsyncThunk(
   'authenticated/historyTransactions',
-  async token => {
+  async ({token, page, sort}) => {
     const results = {};
     try {
-      const {data} = await http(token).get('authenticated/historyTransactions');
+      const sorted = sort ? sort : 'DESC';
+      const pages = page ? page : 1;
+      const {data} = await http(token).get(
+        `authenticated/historyTransactions?page=${pages}&sorting=${sorted}`,
+      );
       results.data = data.results;
       results.message = data.message;
+      results.pageInfo = data.pageInfo;
       return results;
     } catch (e) {
       console.log(e);

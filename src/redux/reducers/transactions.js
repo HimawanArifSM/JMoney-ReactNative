@@ -17,6 +17,7 @@ const initialState = {
   amount: '',
   notes: '',
   date: '',
+  pageInfo: '',
 };
 
 const transaction = createSlice({
@@ -78,7 +79,15 @@ const transaction = createSlice({
       state.successmsg = null;
     });
     build.addCase(getHistoryTransaction.fulfilled, (state, action) => {
-      state.data = action.payload.data;
+      const data = action.payload.data;
+      const page = action.payload.pageInfo;
+      if (page.currentpage > 1) {
+        state.data = [...state.data, ...data];
+        state.pageInfo = page;
+      } else {
+        state.data = data;
+        state.pageInfo = page;
+      }
     });
   },
 });

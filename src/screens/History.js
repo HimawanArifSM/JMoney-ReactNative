@@ -18,11 +18,27 @@ import {getHistoryTransaction} from '../redux/actions/transaction';
 
 const Details = ({navigation}) => {
   const dispatch = useDispatch();
+  const [sort, setSort] = React.useState('DESC');
   const data = useSelector(state => state.transactions.data);
   const token = useSelector(state => state.auth.token);
+  const pagination = useSelector(state => state.transactions?.pageInfo);
+  let page = pagination?.currentpage;
+  let next = pagination?.nextPage;
+  const nextPage = () => {
+    if (next === null) {
+      console.log('page empty');
+    } else {
+      page++;
+      console.log(page);
+      dispatch(getHistoryTransaction({token, page, sort}));
+    }
+  };
+  const onRefresh = () => {
+    dispatch(getHistoryTransaction({token, sort}));
+  };
   React.useEffect(() => {
-    dispatch(getHistoryTransaction(token));
-  }, [dispatch, token]);
+    dispatch(getHistoryTransaction({token, sort}));
+  }, [dispatch, token, sort]);
   return (
     <View>
       {/* header */}
@@ -33,12 +49,16 @@ const Details = ({navigation}) => {
         </View>
         <View style={stylesLocal.buttonSection}>
           <View>
-            <TouchableOpacity style={stylesLocal.btnTwo}>
+            <TouchableOpacity
+              onPress={() => setSort('ASC')}
+              style={stylesLocal.btnTwo}>
               <Icon name="arrow-up" size={20} color="red" />
             </TouchableOpacity>
           </View>
           <View>
-            <TouchableOpacity style={stylesLocal.btnTwo}>
+            <TouchableOpacity
+              onPress={() => setSort('DESC')}
+              style={stylesLocal.btnTwo}>
               <Icon name="arrow-down" size={20} color="green" />
             </TouchableOpacity>
           </View>
@@ -48,6 +68,10 @@ const Details = ({navigation}) => {
         </View>
       </>
       <FlatList
+        onRefresh={() => onRefresh()}
+        refreshing={false}
+        onEndReached={() => nextPage()}
+        onEndReachedThreshold={0.5}
         data={data}
         renderItem={({item}) => {
           return (
@@ -57,7 +81,7 @@ const Details = ({navigation}) => {
             </TouchableOpacity>
           );
         }}
-        keyExtractor={item => String(item.id)}
+        keyExtractor={item => item.id}
         // contentContainerStyle={stylesLocal.padding}
         // ListHeaderComponent={}
       />

@@ -239,7 +239,7 @@ const stylesLocal = StyleSheet.create({
   modal: {
     backgroundColor: 'rgba(0,0,0,0.5)',
     flex: 1,
-    borderRadius: 15,
+    // borderRadius: 15,
   },
   br: {
     borderRadius: 15,
@@ -251,6 +251,7 @@ const stylesLocal = StyleSheet.create({
     height: Dimensions.get('screen').height / 2,
     margin: 50,
     elevation: 4,
+    borderRadius: 15,
   },
   titleModal: {
     fontSize: 22,
