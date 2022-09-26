@@ -4,6 +4,7 @@ import {BACKEND_URL} from '@env';
 
 const http = token => {
   const headers = {};
+  console.log(BACKEND_URL);
   if (token) {
     headers.authorization = `Bearer ${token}`;
   }
