@@ -18,6 +18,7 @@ import CreatePin from './Create-pin';
 import {PRIMARY_COLOR} from '../styles/constant';
 import Modal from '../components/Modal';
 import ChangePinNew from './New-Pin';
+import EditPhoto from './EditPhoto';
 
 const Stack = createNativeStackNavigator();
 
@@ -90,6 +91,11 @@ const HomeStack = () => {
       <Stack.Screen
         name="New PIN"
         component={ChangePinNew}
+        options={{headerStyle: {backgroundColor: PRIMARY_COLOR}}}
+      />
+      <Stack.Screen
+        name="Edit Photo"
+        component={EditPhoto}
         options={{headerStyle: {backgroundColor: PRIMARY_COLOR}}}
       />
     </Stack.Navigator>

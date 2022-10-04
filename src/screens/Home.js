@@ -15,10 +15,11 @@ import ItemList from '../components/ItemList';
 // import Data from '../assets/Data';
 import {useDispatch, useSelector} from 'react-redux';
 import {getHistoryTransaction} from '../redux/actions/transaction';
+import {resetdata} from '../redux/reducers/transactions';
 
 const Home = ({navigation}) => {
   const dispatch = useDispatch();
-  const data = useSelector(state => state.transactions.data);
+  const data = useSelector(state => state.transactions.laman1);
   const token = useSelector(state => state.auth.token);
   const [sort, setSort] = React.useState('DESC');
   const pagination = useSelector(state => state.transactions?.pageInfo);
@@ -28,7 +29,7 @@ const Home = ({navigation}) => {
     if (next === null) {
       console.log('page empty');
     } else {
-      page++;
+      // page++;
       console.log(page);
       dispatch(getHistoryTransaction({token, page, sort}));
     }
@@ -38,6 +39,7 @@ const Home = ({navigation}) => {
   };
   React.useEffect(() => {
     dispatch(getHistoryTransaction({token, sort}));
+    dispatch(resetdata());
   }, [dispatch, token, sort]);
   return (
     <>

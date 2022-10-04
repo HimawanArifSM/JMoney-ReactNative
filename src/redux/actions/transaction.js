@@ -22,7 +22,8 @@ export const transfer = createAsyncThunk(
     const results = {};
     try {
       const send = qs.stringify(request);
-      console.log(send);
+      console.log(send + ' ini send');
+      console.log(token + ' ini token');
       const {data} = await http(token).post('authenticated/transfer', send);
       console.log(data);
       results.data = data.results;
@@ -62,7 +63,7 @@ export const getHistoryTransaction = createAsyncThunk(
       const sorted = sort ? sort : 'DESC';
       const pages = page ? page : 1;
       const {data} = await http(token).get(
-        `authenticated/historyTransactions?page=${pages}&sorting=${sorted}`,
+        `authenticated/historyTransactions?page=${pages}&sorting=${sorted}&limit=10`,
       );
       results.data = data.results;
       results.message = data.message;

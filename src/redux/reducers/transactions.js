@@ -18,6 +18,9 @@ const initialState = {
   notes: '',
   date: '',
   pageInfo: '',
+  data: [],
+  nextData: [],
+  laman1: [],
 };
 
 const transaction = createSlice({
@@ -49,6 +52,10 @@ const transaction = createSlice({
       state.errormsg = null;
       state.successmsg = null;
     },
+    resetdata: state => {
+      state.nextData = [];
+      // state.data = [];
+    },
   },
   extraReducers: build => {
     build.addCase(getAllProfile.pending, state => {
@@ -79,15 +86,21 @@ const transaction = createSlice({
       state.successmsg = null;
     });
     build.addCase(getHistoryTransaction.fulfilled, (state, action) => {
-      const data = action.payload.data;
+      // const data = action.payload.data;
+      state.data = action.payload.data;
       const page = action.payload.pageInfo;
-      if (page.currentpage > 1) {
-        state.data = [...state.data, ...data];
-        state.pageInfo = page;
-      } else {
-        state.data = data;
-        state.pageInfo = page;
+      state.nextData.push(...action.payload.data);
+      state.pageInfo = page;
+      if (page.currentpage === 1) {
+        state.laman1 = action.payload.data;
       }
+      // if (page.currentpage > 1) {
+      // state.data.push(nextData);
+      // state.pageInfo = page;
+      // } else {
+      // state.data = nextData;
+      // state.pageInfo = page;
+      // }
     });
   },
 });
@@ -103,4 +116,5 @@ export const {
   getnotes,
   getdate,
   resetmsg,
+  resetdata,
 } = transaction.actions;

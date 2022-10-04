@@ -15,26 +15,33 @@ import ItemList from '../components/ItemList';
 import Data from '../assets/Data';
 import {useDispatch, useSelector} from 'react-redux';
 import {getHistoryTransaction} from '../redux/actions/transaction';
+import {resetdata} from '../redux/reducers/transactions';
 
 const Details = ({navigation}) => {
   const dispatch = useDispatch();
   const [sort, setSort] = React.useState('DESC');
   const data = useSelector(state => state.transactions.data);
+  const nextData = useSelector(state => state.transactions.nextData);
   const token = useSelector(state => state.auth.token);
   const pagination = useSelector(state => state.transactions?.pageInfo);
   let page = pagination?.currentpage;
   let next = pagination?.nextPage;
+  console.log(nextData);
+
   const nextPage = () => {
     if (next === null) {
       console.log('page empty');
     } else {
       page++;
-      console.log(page);
+      // console.log(page);
+      console.log(page + 1);
       dispatch(getHistoryTransaction({token, page, sort}));
     }
+    console.log('next');
   };
   const onRefresh = () => {
     dispatch(getHistoryTransaction({token, sort}));
+    dispatch(resetdata());
   };
   React.useEffect(() => {
     dispatch(getHistoryTransaction({token, sort}));
@@ -50,14 +57,20 @@ const Details = ({navigation}) => {
         <View style={stylesLocal.buttonSection}>
           <View>
             <TouchableOpacity
-              onPress={() => setSort('ASC')}
+              onPress={() => {
+                setSort('ASC');
+                dispatch(resetdata());
+              }}
               style={stylesLocal.btnTwo}>
               <Icon name="arrow-up" size={20} color="red" />
             </TouchableOpacity>
           </View>
           <View>
             <TouchableOpacity
-              onPress={() => setSort('DESC')}
+              onPress={() => {
+                setSort('DESC');
+                dispatch(resetdata());
+              }}
               style={stylesLocal.btnTwo}>
               <Icon name="arrow-down" size={20} color="green" />
             </TouchableOpacity>
@@ -67,24 +80,26 @@ const Details = ({navigation}) => {
           </TouchableOpacity>
         </View>
       </>
-      <FlatList
-        onRefresh={() => onRefresh()}
-        refreshing={false}
-        onEndReached={() => nextPage()}
-        onEndReachedThreshold={0.5}
-        data={data}
-        renderItem={({item}) => {
-          return (
-            <TouchableOpacity
-              onPress={() => navigation.navigate('Transfer Success')}>
-              <ItemList item={item} />
-            </TouchableOpacity>
-          );
-        }}
-        keyExtractor={item => item.id}
-        // contentContainerStyle={stylesLocal.padding}
-        // ListHeaderComponent={}
-      />
+      <View style={{height: Dimensions.get('screen').height - 317}}>
+        <FlatList
+          onRefresh={onRefresh}
+          refreshing={false}
+          onEndReached={nextPage}
+          onEndReachedThreshold={0.5}
+          data={nextData}
+          renderItem={({item}) => {
+            return (
+              <TouchableOpacity
+                onPress={() => navigation.navigate('Transfer Success')}>
+                <ItemList item={item} />
+              </TouchableOpacity>
+            );
+          }}
+          keyExtractor={item => item.id}
+          // contentContainerStyle={stylesLocal.padding}
+          // ListHeaderComponent={}
+        />
+      </View>
     </View>
   );
 };

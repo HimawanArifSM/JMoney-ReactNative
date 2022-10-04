@@ -17,30 +17,35 @@ import graph from '../assets/graphic.png';
 import Data from '../assets/Data';
 import {useDispatch, useSelector} from 'react-redux';
 import {getHistoryTransaction} from '../redux/actions/transaction';
+import {resetdata} from '../redux/reducers/transactions';
 
 const Details = ({navigation}) => {
   const dispatch = useDispatch();
-  const data = useSelector(state => state.transactions.data);
-  const token = useSelector(state => state.auth.token);
-  const [sort, setSort] = React.useState('DESC');
-  const pagination = useSelector(state => state.transactions?.pageInfo);
-  let page = pagination?.currentpage;
-  let next = pagination?.nextPage;
-  const nextPage = () => {
-    if (next === null) {
-      console.log('page empty');
-    } else {
-      page++;
-      console.log(page);
-      dispatch(getHistoryTransaction({token, page, sort}));
-    }
-  };
-  const onRefresh = () => {
-    dispatch(getHistoryTransaction({token, sort}));
-  };
-  React.useEffect(() => {
-    dispatch(getHistoryTransaction({token, sort}));
-  }, [dispatch, token, sort]);
+  const data = useSelector(state => state.transactions.laman1);
+  // const token = useSelector(state => state.auth.token);
+  // const [sort, setSort] = React.useState('DESC');
+  // const pagination = useSelector(state => state.transactions?.pageInfo);
+  // let page = pagination?.currentpage;
+  // let next = pagination?.nextPage;
+  // const nextPage = () => {
+  //   if (next === null) {
+  //     console.log('page empty');
+  //   } else {
+  //     // page++;
+  //     console.log(page);
+  //     dispatch(getHistoryTransaction({token, page, sort}));
+  //   }
+  // };
+  // const onRefresh = () => {
+  //   dispatch(getHistoryTransaction({token, sort}));
+  // };
+  // React.useEffect(() => {
+  //   if (pagination?.currentpage > 1) {
+  //     dispatch(getHistoryTransaction({token, page: 1, sort}));
+  //     // dispatch(resetdata());
+  //   }
+  //   // dispatch(resetdata());
+  // }, [dispatch, token, sort]);
   return (
     <>
       {/* header */}
@@ -78,7 +83,10 @@ const Details = ({navigation}) => {
               <View style={stylesLocal.textBetween}>
                 <Text>Transaction History</Text>
                 <TouchableOpacity
-                  onPress={() => navigation.navigate('History')}>
+                  onPress={() => {
+                    dispatch(resetdata());
+                    navigation.navigate('History');
+                  }}>
                   <Text>See all</Text>
                 </TouchableOpacity>
               </View>
