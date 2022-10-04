@@ -56,8 +56,11 @@ const HomeTab = ({errors, handleChange, handleSubmit}) => {
               <View style={stylesLocal.headerLeft}>
                 <TouchableOpacity
                   onPress={() => navigation.navigate('Profile')}>
-                  <Image />
-                  <View style={stylesLocal.pict} />
+                  <Image
+                    source={{uri: data?.picture}}
+                    style={stylesLocal.imaging}
+                  />
+                  {/* <View style={stylesLocal.pict} /> */}
                 </TouchableOpacity>
                 <View style={stylesLocal.marLeft}>
                   <Text style={stylesLocal.textWhite}>Balance</Text>
@@ -101,7 +104,7 @@ const HomeTab = ({errors, handleChange, handleSubmit}) => {
           tabBarIcon: ({focused, color, size}) => (
             <Icon name="plus" color={color} size={size} />
           ),
-          header: ({navigation}) => (
+          header: () => (
             <View style={stylesLocal.topUp2}>
               <Text style={styles.headText}>Top Up</Text>
               <View style={stylesLocal.topUpContent}>
@@ -182,6 +185,11 @@ const stylesLocal = StyleSheet.create({
     height: 52,
     borderRadius: 10,
     backgroundColor: 'black',
+  },
+  imaging: {
+    width: 52,
+    height: 52,
+    borderRadius: 10,
   },
   home: {
     flexDirection: 'row',

@@ -7,6 +7,7 @@ import {
   Modal,
   TextInput,
   Dimensions,
+  Image,
 } from 'react-native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -36,7 +37,10 @@ const Profile = ({navigation}) => {
   return (
     <ScrollView style={[stylesLocal.pdbtm]}>
       <View style={stylesLocal.profhead}>
-        <View style={stylesLocal.pict} />
+        <TouchableOpacity onPress={() => navigation.navigate('Edit Photo')}>
+          <Image source={{uri: data?.picture}} style={stylesLocal.pict} />
+          {/* <View style={stylesLocal.pict} /> */}
+        </TouchableOpacity>
         <TouchableOpacity
           onPress={() => setShow(!show)}
           style={stylesLocal.profEdt}>
@@ -117,6 +121,11 @@ const stylesLocal = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 20,
   },
+  imaging: {
+    width: 52,
+    height: 52,
+    borderRadius: 10,
+  },
   modal: {
     backgroundColor: 'rgba(0,0,0,0.5)',
     flex: 1,
@@ -142,7 +151,7 @@ const stylesLocal = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 10,
-    backgroundColor: 'black',
+    // backgroundColor: 'black',
   },
   profhead: {
     justifyContent: 'center',
