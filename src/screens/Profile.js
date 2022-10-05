@@ -37,17 +37,17 @@ const Profile = ({navigation}) => {
   return (
     <ScrollView style={[stylesLocal.pdbtm]}>
       <View style={stylesLocal.profhead}>
-        <TouchableOpacity onPress={() => navigation.navigate('Edit Photo')}>
-          <Image source={{uri: data?.picture}} style={stylesLocal.pict} />
-          {/* <View style={stylesLocal.pict} /> */}
-        </TouchableOpacity>
+        <Image source={{uri: data?.picture}} style={stylesLocal.pict} />
+        {/* <View style={stylesLocal.pict} /> */}
         <TouchableOpacity
-          onPress={() => setShow(!show)}
+          onPress={() => navigation.navigate('Edit Photo')}
           style={stylesLocal.profEdt}>
           <Icon name="pencil" size={10} />
           <Text style={styles.textSecondary}>Edit</Text>
         </TouchableOpacity>
-        <Text style={styles.marA}>{data.fullname}</Text>
+        <TouchableOpacity onPress={() => setShow(!show)}>
+          <Text style={styles.marA}>{data.fullname}</Text>
+        </TouchableOpacity>
         <Text style={styles.marA}>+62 {data.phonenumber.slice(1)}</Text>
       </View>
       <TouchableOpacity
