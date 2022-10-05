@@ -1,7 +1,7 @@
 import {
   View,
   Text,
-  ScrollView,
+  // ScrollView,
   StyleSheet,
   Image,
   Dimensions,
@@ -14,9 +14,9 @@ import {PRIMARY_COLOR, SECONDARY_COLOR} from '../styles/constant';
 import ItemList from '../components/ItemList';
 
 import graph from '../assets/graphic.png';
-import Data from '../assets/Data';
+// import Data from '../assets/Data';
 import {useDispatch, useSelector} from 'react-redux';
-import {getHistoryTransaction} from '../redux/actions/transaction';
+// import {getHistoryTransaction} from '../redux/actions/transaction';
 import {resetdata} from '../redux/reducers/transactions';
 
 const Details = ({navigation}) => {

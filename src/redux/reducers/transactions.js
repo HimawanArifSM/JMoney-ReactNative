@@ -21,6 +21,8 @@ const initialState = {
   data: [],
   nextData: [],
   laman1: [],
+  allprofile: [],
+  pageAD: '',
 };
 
 const transaction = createSlice({
@@ -63,8 +65,17 @@ const transaction = createSlice({
       state.successmsg = null;
     });
     build.addCase(getAllProfile.fulfilled, (state, action) => {
-      state.results = action.payload.data;
-      state.totalData = action.payload.page.totalData;
+      // state.results = action.payload.data;
+      // state.totalData = action.payload.page.totalData;
+      const results = action.payload?.data;
+      const pageAD = action.payload?.pageInfo;
+      if (pageAD.currentpage > 1) {
+        state.pageAD = pageAD;
+        state.allprofile = [...state.allprofile, ...results];
+      } else {
+        state.pageAD = pageAD;
+        state.allprofile = results;
+      }
     });
     build.addCase(transfer.pending, state => {
       state.errormsg = null;

@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import {PRIMARY_COLOR, SECONDARY_COLOR} from '../styles/constant';
 import ItemList from '../components/ItemList';
 
-import Data from '../assets/Data';
+// import Data from '../assets/Data';
 import {useDispatch, useSelector} from 'react-redux';
 import {getHistoryTransaction} from '../redux/actions/transaction';
 import {resetdata} from '../redux/reducers/transactions';
@@ -20,7 +20,7 @@ import {resetdata} from '../redux/reducers/transactions';
 const Details = ({navigation}) => {
   const dispatch = useDispatch();
   const [sort, setSort] = React.useState('DESC');
-  const data = useSelector(state => state.transactions.data);
+  // const data = useSelector(state => state.transactions.data);
   const nextData = useSelector(state => state.transactions.nextData);
   const token = useSelector(state => state.auth.token);
   const pagination = useSelector(state => state.transactions?.pageInfo);

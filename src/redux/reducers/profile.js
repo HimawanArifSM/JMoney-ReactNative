@@ -4,6 +4,7 @@ import {
   checkPin,
   getUserLogin,
   updatePhone,
+  updatePhoto,
   updatePin,
   updateProfile,
 } from '../actions/profile';
@@ -70,6 +71,15 @@ export const profile = createSlice({
       state.successmsg = null;
     });
     build.addCase(updateProfile.fulfilled, (state, action) => {
+      state.successmsg = action.payload.message;
+      state.errormsg = action.payload.errormsg;
+      state.data = action.payload?.data;
+    });
+    build.addCase(updatePhoto.pending, state => {
+      state.errormsg = null;
+      state.successmsg = null;
+    });
+    build.addCase(updatePhoto.fulfilled, (state, action) => {
       state.successmsg = action.payload.message;
       state.errormsg = action.payload.errormsg;
       state.data = action.payload?.data;

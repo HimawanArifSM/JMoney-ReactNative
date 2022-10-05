@@ -20,10 +20,27 @@ import {
 } from '../redux/reducers/transactions';
 
 const SearchReceiver = ({navigation}) => {
-  const allprofile = useSelector(state => state.transactions.results);
+  const allprofile = useSelector(state => state.transactions.allprofile);
+  const pagination = useSelector(state => state.transactions.pageAD);
   const dispatch = useDispatch();
-  console.log(allprofile);
-  const totalData = useSelector(state => state.transactions.totalData);
+  console.log(pagination + ' paginasi');
+  const totalData = pagination.totalData;
+  let page = pagination?.currentpage;
+  console.log(page + ' ini dari screen');
+  let next = pagination?.nextPage;
+  const nextPage = () => {
+    if (next === null) {
+      console.log('page empty');
+    } else {
+      page++;
+      console.log(page);
+      dispatch(getAllProfile(page));
+    }
+  };
+  const onRefresh = () => {
+    page = 1;
+    dispatch(getAllProfile(page));
+  };
   const PassData = item => {
     dispatch(getname(item.fullname));
     dispatch(getimage(item.picture));
@@ -44,6 +61,10 @@ const SearchReceiver = ({navigation}) => {
           </View>
         }
         data={allprofile}
+        onRefresh={() => onRefresh()}
+        refreshing={false}
+        onEndReached={() => nextPage()}
+        onEndReachedThreshold={0.5}
         renderItem={({item}) => {
           return (
             <TouchableOpacity onPress={() => PassData(item)}>

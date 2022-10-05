@@ -126,3 +126,31 @@ export const updateProfile = createAsyncThunk(
     }
   },
 );
+
+export const updatePhoto = createAsyncThunk(
+  'authenticated/update-photo',
+  async ({token, request}) => {
+    const results = {};
+    console.log('ini request' + request);
+    try {
+      const form = new FormData();
+      form.append('picture', {
+        uri: request.uri,
+        name: request.name,
+        type: request.type,
+      });
+      const {data} = await http(token).patch('authenticated/profiles', form, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      console.log(data);
+      results.data = data.results;
+      results.message = data.message;
+      return results;
+    } catch (e) {
+      console.log(e);
+      return e;
+    }
+  },
+);

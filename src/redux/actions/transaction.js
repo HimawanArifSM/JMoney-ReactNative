@@ -2,12 +2,16 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import http from '../../helpers/http';
 import qs from 'qs';
 
-export const getAllProfile = createAsyncThunk('profile/all', async () => {
+export const getAllProfile = createAsyncThunk('profile/all', async page => {
   const results = {};
+  const pages = page ? page : 1;
+  console.log(page + ' ini pages');
   try {
-    const {data} = await http().get('admin/profiles');
+    const {data} = await http().get(
+      `admin/profiles?page=${pages}&sorting=asc&sortedBy=fullname`,
+    );
     results.data = data.results;
-    results.page = data?.pageInfo;
+    results.pageInfo = data?.pageInfo;
     results.message = data.message;
     return results;
   } catch (e) {

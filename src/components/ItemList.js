@@ -8,7 +8,11 @@ const ItemList = ({item}) => {
     <View style={stylesLocal.listed}>
       <View style={stylesLocal.leftSide}>
         {/* <Image /> */}
-        <View style={stylesLocal.pict} />
+        {item.picture ? (
+          <Image source={{uri: item.picture}} style={stylesLocal.imaging} />
+        ) : (
+          <View style={stylesLocal.pict} />
+        )}
         <View style={stylesLocal.marginLeft}>
           {/* {item.type !== 'TopUp' && <Text>{item.sender}</Text>}
           <Text>{item.recipient}</Text> */}
@@ -27,9 +31,9 @@ const ItemList = ({item}) => {
       <View>
         {/* <Text>{item.amount}</Text> */}
         {item.recipient_id === userid ? (
-          <Text>+{item.amount}</Text>
+          <Text style={stylesLocal.txtGreen}>+{item.amount}</Text>
         ) : (
-          <Text>-{item.amount}</Text>
+          <Text style={stylesLocal.txtRed}>-{item.amount}</Text>
         )}
       </View>
     </View>
@@ -47,6 +51,17 @@ const stylesLocal = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     height: 60,
+  },
+  imaging: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+  },
+  txtGreen: {
+    color: 'green',
+  },
+  txtRed: {
+    color: 'red',
   },
   listed: {
     padding: 10,
