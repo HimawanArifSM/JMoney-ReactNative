@@ -8,7 +8,7 @@ export const getAllProfile = createAsyncThunk('profile/all', async page => {
   console.log(page + ' ini pages');
   try {
     const {data} = await http().get(
-      `admin/profiles?page=${pages}&sorting=asc&sortedBy=fullname`,
+      `admin/profiles?page=${pages}&sorting=asc&sortBy=fullname`,
     );
     results.data = data.results;
     results.pageInfo = data?.pageInfo;
