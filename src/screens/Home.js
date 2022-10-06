@@ -57,19 +57,19 @@ const Home = ({navigation}) => {
                 onPress={() => navigation.navigate('Transfer')}
                 style={stylesLocal.btnOne}>
                 <Icon name="arrow-up" size={20} />
-                <Text style={stylesLocal.txtonly}>Transfer</Text>
+                <Text>Transfer</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => navigation.navigate('TopUp')}
                 style={stylesLocal.btnOne}>
                 <Icon name="plus" size={20} />
-                <Text style={stylesLocal.txtonly}>Top Up</Text>
+                <Text>Top Up</Text>
               </TouchableOpacity>
             </View>
             {/* content */}
             <View>
               <View style={stylesLocal.textBetween}>
-                <Text style={stylesLocal.txtonly}>Transaction History</Text>
+                <Text>Transaction History</Text>
                 <TouchableOpacity
                   onPress={() => navigation.navigate('Details')}>
                   <Text>See all</Text>

@@ -20,14 +20,16 @@ import Profile from './Profile';
 import Input from '../components/Input.js';
 import styles from '../styles/global';
 import {useDispatch, useSelector} from 'react-redux';
-import {topUp} from '../redux/actions/transaction';
+import {getHistoryTransaction, topUp} from '../redux/actions/transaction';
 import {resetmsg} from '../redux/reducers/transactions';
 import {getUserLogin} from '../redux/actions/profile';
+
+import {store} from '../redux/store';
 
 const BottomTab = createBottomTabNavigator();
 
 const HomeTab = ({errors, handleChange, handleSubmit}) => {
-  const data = useSelector(state => state.profile.data);
+  const data = useSelector(() => store.getState().profile.data);
   const [show, setShow] = React.useState(false);
   const [amount, setAmount] = React.useState('');
   const token = useSelector(state => state.auth.token);

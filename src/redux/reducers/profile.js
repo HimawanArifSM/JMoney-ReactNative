@@ -83,7 +83,7 @@ export const profile = createSlice({
     build.addCase(updatePhoto.fulfilled, (state, action) => {
       state.successmsg = action.payload.message;
       state.errormsg = action.payload.errormsg;
-      state.dataPhoto = action.payload?.data;
+      state.data.picture = action.payload?.data.picture;
     });
   },
 });
