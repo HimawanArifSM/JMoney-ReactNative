@@ -131,7 +131,7 @@ export const updatePhoto = createAsyncThunk(
   'authenticated/update-photo',
   async ({token, request}) => {
     const results = {};
-    console.log('ini request' + request);
+    console.log('ini request' + qs.stringify(request));
     try {
       const form = new FormData();
       form.append('picture', {

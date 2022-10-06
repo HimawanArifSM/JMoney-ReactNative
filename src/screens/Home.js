@@ -57,19 +57,19 @@ const Home = ({navigation}) => {
                 onPress={() => navigation.navigate('Transfer')}
                 style={stylesLocal.btnOne}>
                 <Icon name="arrow-up" size={20} />
-                <Text>Transfer</Text>
+                <Text style={stylesLocal.txtonly}>Transfer</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => navigation.navigate('TopUp')}
                 style={stylesLocal.btnOne}>
                 <Icon name="plus" size={20} />
-                <Text>Top Up</Text>
+                <Text style={stylesLocal.txtonly}>Top Up</Text>
               </TouchableOpacity>
             </View>
             {/* content */}
             <View>
               <View style={stylesLocal.textBetween}>
-                <Text>Transaction History</Text>
+                <Text style={stylesLocal.txtonly}>Transaction History</Text>
                 <TouchableOpacity
                   onPress={() => navigation.navigate('Details')}>
                   <Text>See all</Text>
@@ -120,6 +120,11 @@ const stylesLocal = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: 10,
+  },
+  txtonly: {
+    fontWeight: '700',
+    fontSize: 16,
+    color: 'white',
   },
 });
 

@@ -63,7 +63,9 @@ const HomeTab = ({errors, handleChange, handleSubmit}) => {
                   {/* <View style={stylesLocal.pict} /> */}
                 </TouchableOpacity>
                 <View style={stylesLocal.marLeft}>
-                  <Text style={stylesLocal.textWhite}>Balance</Text>
+                  <Text style={(stylesLocal.textWhite, stylesLocal.txtonly)}>
+                    Balance
+                  </Text>
                   <Text style={stylesLocal.textWhite}>{data?.balance}</Text>
                 </View>
               </View>
@@ -301,6 +303,11 @@ const stylesLocal = StyleSheet.create({
     justifyContent: 'center',
     width: 70,
     elevation: 6,
+  },
+  txtonly: {
+    fontWeight: '700',
+    fontSize: 18,
+    color: 'white',
   },
 });
 

@@ -12,7 +12,7 @@ const ItemListTF = ({item}) => {
           <View style={stylesLocal.pict} />
         )}
         <View style={stylesLocal.marginLeft}>
-          <Text>{item.fullname}</Text>
+          <Text style={stylesLocal.txtonly}>{item.fullname}</Text>
           <Text>{item.phonenumber}</Text>
         </View>
       </View>
@@ -26,6 +26,10 @@ const stylesLocal = StyleSheet.create({
     height: 40,
     borderRadius: 20,
     backgroundColor: 'black',
+  },
+  txtonly: {
+    fontSize: 18,
+    fontWeight: '700',
   },
   imaging: {
     width: 40,

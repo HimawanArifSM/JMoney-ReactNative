@@ -11,6 +11,7 @@ const http = token => {
   return axios.create({
     headers,
     baseURL: BACKEND_URL,
+    // baseURL: url,
   });
 };
 

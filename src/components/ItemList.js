@@ -18,12 +18,12 @@ const ItemList = ({item}) => {
           <Text>{item.recipient}</Text> */}
           {item.recipient_id === userid ? (
             item.type === 'TopUp' ? (
-              <Text>{item.recipient}</Text>
+              <Text style={stylesLocal.txtonly}>{item.recipient}</Text>
             ) : (
-              <Text>{item.sender}</Text>
+              <Text style={stylesLocal.txtonly}>{item.sender}</Text>
             )
           ) : (
-            <Text>{item.recipient}</Text>
+            <Text style={stylesLocal.txtonly}>{item.recipient}</Text>
           )}
           <Text>{item.type}</Text>
         </View>
@@ -57,11 +57,19 @@ const stylesLocal = StyleSheet.create({
     height: 40,
     borderRadius: 20,
   },
+  txtonly: {
+    fontSize: 18,
+    fontWeight: '700',
+  },
   txtGreen: {
     color: 'green',
+    fontSize: 18,
+    fontWeight: '700',
   },
   txtRed: {
     color: 'red',
+    fontSize: 18,
+    fontWeight: '700',
   },
   listed: {
     padding: 10,

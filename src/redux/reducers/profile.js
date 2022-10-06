@@ -13,6 +13,7 @@ const initialState = {
   data: {},
   errormsg: '',
   successmsg: '',
+  dataPhoto: [],
 };
 
 export const profile = createSlice({
@@ -82,7 +83,7 @@ export const profile = createSlice({
     build.addCase(updatePhoto.fulfilled, (state, action) => {
       state.successmsg = action.payload.message;
       state.errormsg = action.payload.errormsg;
-      state.data = action.payload?.data;
+      state.dataPhoto = action.payload?.data;
     });
   },
 });
