@@ -17,22 +17,27 @@ import {useDispatch, useSelector} from 'react-redux';
 import {logOut} from '../redux/reducers/auth';
 import {getUserLogin, updateProfile} from '../redux/actions/profile';
 import {PRIMARY_COLOR, SECONDARY_COLOR, TEXT_DARK} from '../styles/constant';
+import {resetmsg} from '../redux/reducers/profile';
 
 const Profile = ({navigation}) => {
   const [show, setShow] = React.useState(false);
   const [fullname, setFullname] = React.useState('');
   const data = useSelector(state => state.profile.data);
   const token = useSelector(state => state.auth.token);
+  const successMsg = useSelector(state => state.profile.successmsg);
+  console.log(successMsg);
   const dispatch = useDispatch();
   const exit = () => {
     dispatch(logOut());
   };
   const submit = () => {
+    dispatch(resetmsg);
     const request = {token: token, fullname: fullname};
     dispatch(updateProfile(request));
   };
   React.useEffect(() => {
     dispatch(getUserLogin(token));
+    dispatch(resetmsg);
   }, [dispatch, token]);
   return (
     <ScrollView style={[stylesLocal.pdbtm]}>
@@ -67,7 +72,7 @@ const Profile = ({navigation}) => {
       <Modal
         animationType="fade"
         transparent={true}
-        visible={show}
+        visible={successMsg ? !show : show}
         onRequestClose={() => setShow(!show)}
         style={stylesLocal.br}>
         <View style={stylesLocal.modal}>

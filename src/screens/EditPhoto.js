@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 
 import {updatePhoto} from '../redux/actions/profile';
+import {getHistoryTransaction} from '../redux/actions/transaction';
 
 const EditPhoto = () => {
   const dispatch = useDispatch();
@@ -20,13 +21,14 @@ const EditPhoto = () => {
   const token = useSelector(state => state.auth.token);
   const [picture, setPicture] = React.useState(null);
   const [uploading, setUpload] = React.useState(false);
-  const uploadImage = picture => {
+  const uploadImage = async picture => {
     const request = {
       uri: picture.uri,
       name: picture.fileName,
       type: picture.type,
     };
-    dispatch(updatePhoto({token, request}));
+    await dispatch(updatePhoto({token, request}));
+    dispatch(getHistoryTransaction({token, sort: 'DESC'}));
     setUpload(false);
   };
   const pickImage = async () => {
