@@ -10,7 +10,7 @@ import React from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {PRIMARY_COLOR} from '../styles/constant';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {launchImageLibrary} from 'react-native-image-picker';
+import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 
 import {updatePhoto} from '../redux/actions/profile';
 
@@ -40,6 +40,17 @@ const EditPhoto = () => {
       uploadImage(pict.assets[0]);
     }
   };
+  const openCam = async () => {
+    const pict = await launchCamera({
+      maxHeight: 980,
+      maxWidth: 980,
+    });
+    if (pict.assets) {
+      setUpload(true);
+      setPicture(pict.assets[0].uri);
+      uploadImage(pict.assets[0]);
+    }
+  };
   return (
     <View style={style.wrap}>
       <View style={style.contain}>
@@ -55,7 +66,7 @@ const EditPhoto = () => {
       </View>
       <View style={style.buttonWraper}>
         <View style={style.borderBtn}>
-          <TouchableOpacity style={style.button}>
+          <TouchableOpacity onPress={openCam} style={style.button}>
             <Icon name={'camerao'} size={36} />
             <Text>Camera</Text>
           </TouchableOpacity>
