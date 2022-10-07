@@ -1,4 +1,4 @@
-package com.mobiledev;
+package com.fazztrack.jmoney;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
@@ -20,7 +20,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "mobileDev";
+    return "JMoney";
   }
 
   /**

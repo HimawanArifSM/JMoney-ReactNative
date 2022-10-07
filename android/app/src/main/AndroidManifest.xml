@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.mobiledev">
+  package="com.fazztrack.jmoney">
 
     <uses-permission android:name="android.permission.INTERNET" />
 

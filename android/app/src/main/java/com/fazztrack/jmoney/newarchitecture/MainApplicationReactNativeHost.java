@@ -1,4 +1,4 @@
-package com.mobiledev.newarchitecture;
+package com.fazztrack.jmoney.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.mobiledev.BuildConfig;
-import com.mobiledev.newarchitecture.components.MainComponentsRegistry;
-import com.mobiledev.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.fazztrack.jmoney.BuildConfig;
+import com.fazztrack.jmoney.newarchitecture.components.MainComponentsRegistry;
+import com.fazztrack.jmoney.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

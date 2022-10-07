@@ -1,4 +1,4 @@
-package com.mobiledev.newarchitecture.modules;
+package com.fazztrack.jmoney.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;

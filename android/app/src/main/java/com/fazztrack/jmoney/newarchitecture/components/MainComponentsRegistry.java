@@ -1,4 +1,4 @@
-package com.mobiledev.newarchitecture.components;
+package com.fazztrack.jmoney.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;
